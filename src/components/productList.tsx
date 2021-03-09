@@ -1,4 +1,5 @@
 import Grid from "@material-ui/core/Grid";
+import React from "react";
 
 import {
   Card,
@@ -8,8 +9,11 @@ import {
   Typography,
   CardActions,
   Button,
+  Modal,
+  Fade,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import Backdrop from "@material-ui/core/Backdrop";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,6 +25,17 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     color: theme.palette.primary.main,
+  },
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
   },
 }));
 
@@ -90,15 +105,31 @@ const addToCart = (product: Product) => {
   console.log(cart);
 };
 
-function ProductList() {
+function Item() {
   const classes = useStyles();
+
+  const [open, setOpen] = React.useState(false);
+  const [activeProductTitle, setActiveProductTitle] = React.useState('')
+  const [activeProductImage, setActiveProductImage] = React.useState('')
+  const [activeProductDescription, setActiveProductDescription] = React.useState('')
+
+  const handleOpen = (productTitle: string, productImage: string, productDescription: string) => {
+    setOpen(true);
+    setActiveProductTitle(productTitle)
+    setActiveProductImage(productImage)
+    setActiveProductDescription(productDescription)
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Grid container justify="center">
       {products.map((product) => (
         <Grid item>
           <Card className={classes.root}>
-            <CardActionArea>
+            <CardActionArea onClick={() => handleOpen(product.title, product.image, product.description)}>
               <CardMedia
                 className={classes.media}
                 image={product.image}
@@ -130,6 +161,28 @@ function ProductList() {
               >
                 Add to cart
               </Button>
+              <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+                <Fade in={open}>
+                  <div className={classes.paper}>
+                    <h2 id="transition-modal-title">{activeProductTitle}</h2>
+                    <img src={activeProductImage} alt="" />
+                    <p id="transition-modal-description">
+                      {activeProductDescription}
+                    </p>
+                  </div>
+                </Fade>
+              </Modal>
             </CardActions>
           </Card>
         </Grid>
@@ -138,4 +191,4 @@ function ProductList() {
   );
 }
 
-export default ProductList;
+export default Item;
