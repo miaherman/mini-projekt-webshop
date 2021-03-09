@@ -4,13 +4,22 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "./theme";
 import Main from "./components/main";
 import PrimarySearchAppBar from "./components/primarySearchAppBar";
+import { Route, Switch } from 'react-router-dom';
+import Checkout from './components/Checkout';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <PrimarySearchAppBar />
-      <Main />
+      <Switch>
+        <Route exact path="/">
+          <PrimarySearchAppBar />
+          <Main />
+        </Route>
+        <Route path='/checkout'>
+          <Checkout/>
+        </Route>
+      </Switch>
     </ThemeProvider>
   );
 }
