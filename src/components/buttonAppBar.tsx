@@ -8,7 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import HomeIcon from "@material-ui/icons/Home";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { Badge } from "@material-ui/core";
-
+import { Link } from 'react-router-dom';
 import { CartContext } from "../contexts/CartContext";
 import { Link } from "react-router-dom";
 
@@ -48,7 +48,13 @@ export default function ButtonAppBar() {
           <Link style={{ color: "inherit" }} to="./checkout">
             <IconButton aria-label="" color="inherit">
               <Badge badgeContent={cart.length} color="secondary">
-                <ShoppingCartIcon />
+
+              <Link to='/checkout' onClick={() => {
+                console.info("clickme");
+              }}>
+                <ShoppingCartIcon/>
+              </Link>
+
               </Badge>
             </IconButton>
           </Link>
