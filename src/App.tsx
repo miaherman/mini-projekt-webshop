@@ -7,10 +7,12 @@ import Main from "./components/main";
 import { Route, Switch } from 'react-router-dom';
 import Checkout from './components/Checkout';
 import ButtonAppBar from "./components/buttonAppBar";
+import CartProvider from "./contexts/CartContext";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <CartProvider>
       <CssBaseline />
       <Switch>
         <Route exact path="/">
@@ -21,7 +23,7 @@ function App() {
           <Checkout/>
         </Route>
       </Switch>
-
+      </CartProvider>
     </ThemeProvider>
   );
 }
