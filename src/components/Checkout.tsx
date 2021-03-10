@@ -1,14 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 import ButtonAppBar from "./buttonAppBar";
 import { makeStyles } from '@material-ui/core/styles';
 
-import { FormControl } from '@material-ui/core';
+// import { FormControl } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 
   const useStyles = makeStyles((theme: any) => ({
       root: {
         justifyContent: 'center',
         display: 'flex',
+        flexDirection: 'column',
         flexWrap: 'wrap',
       },
       textField: {
