@@ -45,15 +45,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Item() {
+
   const classes = useStyles();
-
-  // const [activeProduct, setActiveProduct] = React.useState(products[0]);
-
-  // function checkActiveProduct(product: Product) {
-  //   setActiveProduct(product)
-  //   console.log(activeProduct)
-  // }
-
   const { addToCart } = useContext(CartContext);
 
   return (
@@ -61,7 +54,7 @@ function Item() {
       {products.map((product) => (
         <Grid item>
           <Card className={classes.root}>
-            <Link style={{textDecoration: 'none'}} to={`/${product.id}`}>
+            <Link style={{textDecoration: 'none'}} to={`/${product.path}`}>
               <CardActionArea>
                 <CardMedia
                   className={classes.media}

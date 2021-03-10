@@ -5,8 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-// import MenuIcon from "@material-ui/icons/Menu";
-import HomeIcon from '@material-ui/icons/Home';
+import HomeIcon from "@material-ui/icons/Home";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { Badge } from "@material-ui/core";
 
@@ -30,37 +29,31 @@ export default function ButtonAppBar() {
   const { cart } = useContext(CartContext);
   return (
     <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            {/* <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="menu">
-              <MenuIcon />
-            </IconButton> */}
-            <Link style={{color: "inherit"}} to="/">
+      <AppBar position="static">
+        <Toolbar>
+          <Link style={{ color: "inherit" }} to="/">
             <IconButton
               edge="start"
               className="homeButton"
               color="inherit"
-              aria-label="menu">
+              aria-label="menu"
+            >
               <HomeIcon />
             </IconButton>
-            </Link>
-            <Typography variant="h6" className={classes.title}>
-              Prints
-            </Typography>
-            <Button color="inherit">Login</Button>
-            <Link style={{color: "inherit"}} to="./checkout">
-                <IconButton aria-label="" color="inherit">
-                  <Badge badgeContent={cart.length} color="secondary">
-                    <ShoppingCartIcon />
-                  </Badge>
-                </IconButton>
-            </Link>
-          </Toolbar>
-        </AppBar>
-      </div>
-      )
+          </Link>
+          <Typography variant="h6" className={classes.title}>
+            Prints
+          </Typography>
+          <Button color="inherit">Login</Button>
+          <Link style={{ color: "inherit" }} to="./checkout">
+            <IconButton aria-label="" color="inherit">
+              <Badge badgeContent={cart.length} color="secondary">
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
+          </Link>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 }

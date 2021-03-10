@@ -3,7 +3,9 @@ import Item from "./item";
 
 function Main() {
   return (
-        <Item />
+    <main>
+      <Item />
+    </main>
   );
 }
 export default Main;

@@ -9,7 +9,7 @@ import Checkout from "./components/Checkout";
 import ButtonAppBar from "./components/buttonAppBar";
 import CartProvider from "./contexts/CartContext";
 import ProductView from "./components/productView";
-import Item from "./components/item";
+import Main from "./components/main";
 
 import { products } from "./products";
 
@@ -19,33 +19,24 @@ function App() {
       <ThemeProvider theme={theme}>
         <CartProvider>
           <CssBaseline />
+          <ButtonAppBar />
           <Switch>
             <Route exact path="/">
-              <ButtonAppBar />
-              <Item />
+              <Main />
             </Route>
 
+            {products.map((product) => {
+              return (
+                <Route path={`/${product.path}`}>
+                  <ProductView 
+                  title={product.title} 
+                  image={product.image}
+                  description={product.description}
+                  price={product.price}/>
+                </Route>
+              );
+            })}
 
-            <Route path="/1">
-              <ProductView productID={products[0].id} />
-            </Route>
-            <Route path="/2">
-              <ProductView productID={products[1].id} />
-            </Route>
-            <Route path="/3">
-              <ProductView productID={products[2].id} />
-            </Route>
-            <Route path="/4">
-              <ProductView productID={products[3].id} />
-            </Route>
-            <Route path="/5">
-              <ProductView productID={products[4].id} />
-            </Route>
-            <Route path="/6">
-              <ProductView productID={products[5].id} />
-            </Route>
-
-            
             <Route path="/checkout">
               <Checkout />
             </Route>
@@ -55,4 +46,5 @@ function App() {
     </Router>
   );
 }
+
 export default App;
