@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import ButtonAppBar from "./buttonAppBar";
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
 
 
 // import { FormControl } from '@material-ui/core';
@@ -35,42 +36,44 @@ export default function Checkout() {
      <Container maxWidth="sm">
        <div className={classes.infoContainer}>Fyll i dina uppgifter</div>
         <div>
-          <TextField
-            id="outlined-full-width"
-            label="Förnamn"
-            style={{ margin: 8 }}
-            placeholder="MAJL"
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            variant="outlined"
-          />
-          <TextField
-            id="outlined-full-width"
-            label="Efternamn"
-            style={{ margin: 8 }}
-            placeholder="MAJLSSON"
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            variant="outlined"
-          />
-          <TextField
-            id="outlined-full-width"
-            label="Adress"
-            style={{ margin: 8 }}
-            placeholder="MAJLSSONGATAN"
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            variant="outlined"
-          />
+          <form autoComplete="on">
+            <TextField
+              id="firstname"
+              label="Förnamn"
+              style={{ margin: 8 }}
+              placeholder="MAJL"
+              fullWidth
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="outlined"
+            />
+            <TextField
+              id="lastname"
+              label="Efternamn"
+              style={{ margin: 8 }}
+              placeholder="MAJLSSON"
+              fullWidth
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="outlined"
+            />
+            <TextField
+              id="address"
+              label="Adress"
+              style={{ margin: 8 }}
+              placeholder="MAJLSSONGATAN"
+              fullWidth
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="outlined"
+            />
+            </form>
         </div>
         </Container>
     </div>
