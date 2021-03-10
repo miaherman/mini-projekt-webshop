@@ -1,41 +1,33 @@
 import React from "react";
-import ButtonAppBar from "./buttonAppBar";
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import TextField from "@material-ui/core/TextField";
 
+const useStyles = makeStyles((theme: any) => ({
+  root: {
+    justifyContent: "center",
+    flexWrap: "wrap",
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: "100%",
+  },
 
-
-// import { FormControl } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
-
-  const useStyles = makeStyles((theme: any) => ({
-      root: {
-        justifyContent: 'center',
-        flexWrap: 'wrap',
-
-      },
-      textField: {
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        width: '100%',
-      },
-
-      infoContainer: {
-        marginTop: '10rem',
-        justifyContent: 'center',
-        textAlign: 'center',       
-      }
-    })
-  );
+  infoContainer: {
+    marginTop: "10rem",
+    justifyContent: "center",
+    textAlign: "center",
+  },
+}));
 export default function Checkout() {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-     <><ButtonAppBar/></>
-     <Container maxWidth="sm">
-       <div className={classes.infoContainer}>Fyll i dina uppgifter</div>
-        <div>
+      <Container maxWidth="sm">
+        <div className={classes.infoContainer}>
+          Fyll i dina uppgifter
           <form autoComplete="on">
             <TextField
               id="firstname"
@@ -73,9 +65,9 @@ export default function Checkout() {
               }}
               variant="outlined"
             />
-            </form>
+          </form>
         </div>
-        </Container>
+      </Container>
     </div>
-    );
-  }
+  );
+}

@@ -2,29 +2,49 @@ import React from "react";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "./theme";
-import Main from "./components/main";
 
-import { Route, Switch } from 'react-router-dom';
-import Checkout from './components/Checkout';
+import { BrowserRouter as Router } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
+import Checkout from "./components/Checkout";
 import ButtonAppBar from "./components/buttonAppBar";
 import CartProvider from "./contexts/CartContext";
+import ProductView from "./components/productView";
+import Main from "./components/main";
+
+import { products } from "./products";
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CartProvider>
-      <CssBaseline />
-      <Switch>
-        <Route exact path="/">
-         <ButtonAppBar />
-          <Main />
-        </Route>
-        <Route path='/checkout'>
-          <Checkout/>
-        </Route>
-      </Switch>
-      </CartProvider>
-    </ThemeProvider>
+    <Router>
+      <ThemeProvider theme={theme}>
+        <CartProvider>
+          <CssBaseline />
+          <ButtonAppBar />
+          <Switch>
+            <Route exact path="/">
+              <Main />
+            </Route>
+
+            {products.map((product) => {
+              return (
+                <Route path={`/${product.path}`}>
+                  <ProductView 
+                  title={product.title} 
+                  image={product.image}
+                  description={product.description}
+                  price={product.price}/>
+                </Route>
+              );
+            })}
+
+            <Route path="/checkout">
+              <Checkout />
+            </Route>
+          </Switch>
+        </CartProvider>
+      </ThemeProvider>
+    </Router>
   );
 }
+
 export default App;

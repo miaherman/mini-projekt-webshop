@@ -5,17 +5,17 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+import HomeIcon from "@material-ui/icons/Home";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { Badge } from "@material-ui/core";
-import { Link } from 'react-router-dom';
 import { CartContext } from "../contexts/CartContext";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  menuButton: {
+  homeButton: {
     marginRight: theme.spacing(2),
   },
   title: {
@@ -28,23 +28,26 @@ export default function ButtonAppBar() {
   const { cart } = useContext(CartContext);
   return (
     <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
+      <AppBar position="static">
+        <Toolbar>
+          <Link style={{ color: "inherit" }} to="/">
             <IconButton
               edge="start"
-              className={classes.menuButton}
+              className="homeButton"
               color="inherit"
-              aria-label="menu">
-              <MenuIcon />
+              aria-label="menu"
+            >
+              <HomeIcon />
             </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              News
-            </Typography>
-            <Button color="inherit">Login</Button>
+          </Link>
+          <Typography variant="h6" className={classes.title}>
+            Prints
+          </Typography>
+          <Button color="inherit">Login</Button>
             <IconButton aria-label="" color="inherit">
               <Badge badgeContent={cart.length} color="secondary">
 
-              <Link to='/checkout' onClick={() => {
+              <Link style={{ color: "inherit" }} to='/checkout' onClick={() => {
                 console.info("clickme");
               }}>
                 <ShoppingCartIcon/>
@@ -52,8 +55,8 @@ export default function ButtonAppBar() {
 
               </Badge>
             </IconButton>
-          </Toolbar>
-        </AppBar>
-      </div>
-      )
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 }
