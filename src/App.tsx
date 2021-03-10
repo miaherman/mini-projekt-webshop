@@ -3,14 +3,14 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "./theme";
 import Main from "./components/main";
-import PrimarySearchAppBar from "./components/primarySearchAppBar";
+import ButtonAppBar from "./components/buttonAppBar";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <PrimarySearchAppBar />
-      <Main />
+        <CssBaseline />
+        <ButtonAppBar />
+        <Main />
     </ThemeProvider>
   );
 }
