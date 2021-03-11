@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Item() {
+function ProductGrid() {
 
   const classes = useStyles();
   const { addToCart } = useContext(CartContext);
@@ -104,4 +104,4 @@ function Item() {
   );
 }
 
-export default Item;
+export default ProductGrid;
