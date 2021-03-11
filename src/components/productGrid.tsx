@@ -52,9 +52,9 @@ function ProductGrid() {
   return (
     <Grid container justify="center">
       {products.map((product) => (
-        <Grid item>
+        <Grid item key={product.id}>
           <Card className={classes.root}>
-            <Link style={{textDecoration: 'none'}} to={`/product-details/${product.path}`}>
+            <Link style={{textDecoration: 'none'}} to={`/products/${product.path}`}>
               <CardActionArea>
                 <CardMedia
                   className={classes.media}
@@ -83,6 +83,13 @@ function ProductGrid() {
                     component="p"
                   >
                     {product.price + " kr"}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >I lager:
+                    {product.stock}
                   </Typography>
                 </CardContent>
               </CardActionArea>

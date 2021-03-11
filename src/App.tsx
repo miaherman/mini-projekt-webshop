@@ -11,7 +11,7 @@ import CartProvider from "./contexts/CartContext";
 import ProductView from "./components/productView";
 import Main from "./components/main";
 
-import { products } from "./products";
+//import { products } from "./products";
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
               <Main />
             </Route>
 
-            <Route path="/product-details/:path">
+            <Route path="/products/:path">
               <ProductView />
             </Route>
 
