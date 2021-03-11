@@ -1,11 +1,14 @@
-import { makeStyles, Typography } from "@material-ui/core";
-import React from "react";
+import { Button, makeStyles, Typography } from "@material-ui/core";
+import React, { useContext } from "react";
+import { CartContext } from "../contexts/CartContext";
+import { Product } from "../products";
 
 interface Props {
   image: string;
   title: string;
   description: string;
   price: number;
+  product: Product;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -27,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 function ProductView(props: Props) {
   const classes = useStyles();
+  const { addToCart } = useContext(CartContext);
 
   return (
     <div className={classes.root}>
@@ -40,6 +44,14 @@ function ProductView(props: Props) {
       <Typography variant="h6" className={classes.title}>
         {props.price + ' kr'}
       </Typography>
+      <Button
+        onClick={() => addToCart(props.product)}
+        size="small"
+        color="primary"
+        href=""
+      >
+        Add to cart
+      </Button>
     </div>
   );
 }

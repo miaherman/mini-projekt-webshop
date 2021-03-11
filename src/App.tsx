@@ -32,7 +32,9 @@ function App() {
                   title={product.title} 
                   image={product.image}
                   description={product.description}
-                  price={product.price}/>
+                  price={product.price}
+                  product={product}
+                  />
                 </Route>
               );
             })}
