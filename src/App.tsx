@@ -25,19 +25,9 @@ function App() {
               <Main />
             </Route>
 
-            {products.map((product) => {
-              return (
-                <Route path={`/${product.path}`}>
-                  <ProductView 
-                  title={product.title} 
-                  image={product.image}
-                  description={product.description}
-                  price={product.price}
-                  product={product}
-                  />
-                </Route>
-              );
-            })}
+            <Route path="/product-details/:path">
+              <ProductView />
+            </Route>
 
             <Route path="/checkout">
               <Checkout />

@@ -1,15 +1,8 @@
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import React, { useContext } from "react";
+import { useRouteMatch } from "react-router-dom";
 import { CartContext } from "../contexts/CartContext";
-import { Product } from "../products";
-
-interface Props {
-  image: string;
-  title: string;
-  description: string;
-  price: number;
-  product: Product;
-}
+import { Product, products } from "../products";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,24 +21,31 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function ProductView(props: Props) {
+function ProductView() {
   const classes = useStyles();
   const { addToCart } = useContext(CartContext);
+  
+  const match = useRouteMatch<{ path: string }>();
+  const product = products.find(p => p.path === match.params.path);
+
+  if (!product) {
+    return <p>Produkten du letar efter finns inte.</p>
+  }
 
   return (
     <div className={classes.root}>
       <Typography variant="h3" className={classes.title}>
-        {props.title}
+        {product.title}
       </Typography>
-      <img className={classes.image} src={props.image} alt={props.description} />
+      <img className={classes.image} src={product.image} alt={product.description} />
       <Typography variant="h6" className={classes.title}>
-        {props.description}
+        {product.description}
       </Typography>
       <Typography variant="h6" className={classes.title}>
-        {props.price + ' kr'}
+        {product.price + ' kr'}
       </Typography>
       <Button
-        onClick={() => addToCart(props.product)}
+        onClick={() => addToCart(product)}
         size="small"
         color="primary"
         href=""
