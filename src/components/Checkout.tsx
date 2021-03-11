@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
+import { CartContext } from "../contexts/CartContext";
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -22,10 +23,17 @@ const useStyles = makeStyles((theme: any) => ({
 }));
 export default function Checkout() {
   const classes = useStyles();
+  const { cart } = useContext(CartContext);
+  console.log(cart)
 
   return (
     <div className={classes.root}>
       <Container maxWidth="sm">
+        <div>
+          { cart.map(product => (
+            <div key={product.id}> {product.title} </div>
+          )) }
+        </div>
         <div className={classes.infoContainer}>
           Fyll i dina uppgifter
           <form autoComplete="on">

@@ -54,7 +54,7 @@ function ProductGrid() {
       {products.map((product) => (
         <Grid item>
           <Card className={classes.root}>
-            <Link style={{textDecoration: 'none'}} to={`/${product.path}`}>
+            <Link style={{textDecoration: 'none'}} to={`/product-details/${product.path}`}>
               <CardActionArea>
                 <CardMedia
                   className={classes.media}
