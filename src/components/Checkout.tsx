@@ -120,7 +120,6 @@ export default function Checkout() {
               }}
               variant="outlined"
             />
-            <Button variant="contained">Bekräfta beställning</Button>
           </form>
         </div>
         <div>
@@ -132,7 +131,7 @@ export default function Checkout() {
               value={paymentValue}
               onChange={handlePayment}
               row>
-                <FormControlLabel
+              <FormControlLabel
                 value="swish"
                 control={<Radio />}
                 label="Swish"
@@ -149,7 +148,21 @@ export default function Checkout() {
               />
             </RadioGroup>
           </FormControl>
-        </div>
+          <form autoComplete="on">
+            <TextField
+              id="phone"
+              label="Mobilnummer"
+              required
+              style={{ margin: 8 }}
+              placeholder="Din mobil"
+              fullWidth
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="outlined"
+            />
+        </form></div>
         <div>
           <FormControl component="fieldset">
             <FormLabel component="legend">Välj fraktsätt</FormLabel>
@@ -177,6 +190,7 @@ export default function Checkout() {
             </RadioGroup>
           </FormControl>
         </div>
+        <Button variant="contained">Bekräfta beställning</Button>
       </Container>
     </div>
   );
