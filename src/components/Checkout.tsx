@@ -3,6 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import { CartContext } from "../contexts/CartContext";
+import Button from '@material-ui/core/Button';
+
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -99,6 +101,7 @@ export default function Checkout() {
               }}
               variant="outlined"
             />
+            <Button variant="contained">Bekräfta beställning</Button>
           </form>
         </div>
       </Container>
