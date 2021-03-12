@@ -3,8 +3,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import { CartContext } from "../contexts/CartContext";
-import Button from '@material-ui/core/Button';
-
+import Button from "@material-ui/core/Button";
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -22,6 +28,11 @@ const useStyles = makeStyles((theme: any) => ({
     justifyContent: "center",
     textAlign: "center",
   },
+
+  paymentOptions: {
+    display: "flex",
+    flexDirection: "row",
+  }
 }));
 export default function Checkout() {
   const classes = useStyles();
@@ -31,9 +42,12 @@ export default function Checkout() {
     <div className={classes.root}>
       <Container maxWidth="sm">
         <div>
-          { cart.map(product => (
-            <div key={product.id}> {product.title} {product.price}</div>
-          )) }
+          {cart.map((product) => (
+            <div key={product.id}>
+              {" "}
+              {product.title} {product.price}
+            </div>
+          ))}
         </div>
         <div className={classes.infoContainer}>
           Fyll i dina uppgifter
@@ -103,6 +117,28 @@ export default function Checkout() {
             />
             <Button variant="contained">Bekräfta beställning</Button>
           </form>
+        </div>
+        <div>
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Välj fraktsätt</FormLabel>
+            <RadioGroup aria-label="express" name="express" value={"hej"} className={classes.paymentOptions}>
+              <FormControlLabel
+                value="express"
+                control={<Radio />}
+                label="Express (inom 24h)"
+              />
+              <FormControlLabel
+                value="instabox"
+                control={<Radio />}
+                label="Instabox (48h)"
+              />
+              <FormControlLabel
+                value="Postnord"
+                control={<Radio />}
+                label="Postnord (1-2 veckor)"
+              />
+            </RadioGroup>
+          </FormControl>
         </div>
       </Container>
     </div>
