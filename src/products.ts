@@ -5,7 +5,6 @@ export interface Product {
     title: string;
     description: string;
     price: number;
-    stock: number;
 }
 
 export const products: Array<Product> = [
@@ -17,7 +16,6 @@ export const products: Array<Product> = [
       title: "Freddie Mercury",
       description: "En bild på Freddie",
       price: 300,
-      stock: 0,
     },
     {
       id: 2,
@@ -27,7 +25,6 @@ export const products: Array<Product> = [
       title: "Ansikten",
       description: "Två ansikten",
       price: 400,
-      stock: 2,
     },
     {
       id: 3,
@@ -37,7 +34,6 @@ export const products: Array<Product> = [
       title: "Trana",
       description: "En trana som flyger",
       price: 500,
-      stock: 2,
     },
     {
       id: 4,
@@ -47,7 +43,6 @@ export const products: Array<Product> = [
       title: "Svarta Linjer",
       description: "Lite svarta linjer",
       price: 500,
-      stock: 2,
     },
     {
       id: 5,
@@ -57,7 +52,6 @@ export const products: Array<Product> = [
       title: "Strand",
       description: "En strand och en himmel",
       price: 500,
-      stock: 2,
     },
     {
       id: 6,
@@ -67,6 +61,5 @@ export const products: Array<Product> = [
       title: "Kamera",
       description: "En person håller i en kamera",
       price: 500,
-      stock: 2,
     },
 ];

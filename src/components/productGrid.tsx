@@ -84,13 +84,6 @@ function ProductGrid() {
                   >
                     {product.price + " kr"}
                   </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >I lager:
-                    {product.stock}
-                  </Typography>
                 </CardContent>
               </CardActionArea>
             </Link>
