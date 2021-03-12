@@ -22,21 +22,26 @@ const useStyles = makeStyles((theme: any) => ({
     marginRight: theme.spacing(1),
     width: "100%",
   },
-
   infoContainer: {
     marginTop: "10rem",
     justifyContent: "center",
     textAlign: "center",
   },
-
-  paymentOptions: {
-    display: "flex",
-    flexDirection: "row",
-  }
 }));
 export default function Checkout() {
   const classes = useStyles();
   const { cart } = useContext(CartContext);
+
+  const [paymentValue, setPaymentValue] = React.useState("swish");
+  const [deliveryValue, setDeliveryValue] = React.useState("express");
+
+  const handlePayment = (event: any) => {
+    setPaymentValue(event.target.value);
+  };
+
+  const handleDelivery = (event: any) => {
+    setDeliveryValue(event.target.value);
+  };
 
   return (
     <div className={classes.root}>
@@ -120,8 +125,40 @@ export default function Checkout() {
         </div>
         <div>
           <FormControl component="fieldset">
+            <FormLabel component="legend">Välj betalsätt</FormLabel>
+            <RadioGroup
+              aria-label="swish"
+              name="swish"
+              value={paymentValue}
+              onChange={handlePayment}
+              row>
+                <FormControlLabel
+                value="swish"
+                control={<Radio />}
+                label="Swish"
+              />
+              <FormControlLabel
+                value="card"
+                control={<Radio />}
+                label="Betalkort"
+              />
+              <FormControlLabel
+                value="invoice"
+                control={<Radio />}
+                label="Faktura"
+              />
+            </RadioGroup>
+          </FormControl>
+        </div>
+        <div>
+          <FormControl component="fieldset">
             <FormLabel component="legend">Välj fraktsätt</FormLabel>
-            <RadioGroup aria-label="express" name="express" value={"hej"} className={classes.paymentOptions}>
+            <RadioGroup
+              aria-label="express"
+              name="express"
+              value={deliveryValue}
+              onChange={handleDelivery}
+              row>
               <FormControlLabel
                 value="express"
                 control={<Radio />}
