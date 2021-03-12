@@ -43,14 +43,24 @@ export default function Checkout() {
     setDeliveryValue(event.target.value);
   };
 
+  let group = cart.reduce((r: any, a: any) => {
+    console.log("a", a);
+    console.log("r", r);
+    r[a.title] = [...(r[a.title] || []), a];
+    return r;
+  }, []);
+  console.log("group", group);
+
   return (
     <div className={classes.root}>
       <Container maxWidth="sm">
         <div>
-          {cart.map((product) => (
+          {cart.map((product: any) => (
             <div key={product.id}>
-              {" "}
-              {product.title} {product.price}
+              <li>
+                {product.title}
+                {product.price}
+              </li>
             </div>
           ))}
         </div>
@@ -162,7 +172,8 @@ export default function Checkout() {
               }}
               variant="outlined"
             />
-        </form></div>
+          </form>
+        </div>
         <div>
           <FormControl component="fieldset">
             <FormLabel component="legend">Välj fraktsätt</FormLabel>
@@ -190,7 +201,9 @@ export default function Checkout() {
             </RadioGroup>
           </FormControl>
         </div>
-        <Button variant="contained">Bekräfta beställning</Button>
+        <Button className={classes.textField} variant="contained">
+          Bekräfta beställning
+        </Button>
       </Container>
     </div>
   );
