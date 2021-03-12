@@ -1,8 +1,8 @@
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import React, { useContext } from "react";
-import { useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 import { CartContext } from "../contexts/CartContext";
-import { Product, products } from "../products";
+import { products } from "../products";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +29,8 @@ function ProductView() {
   const product = products.find(p => p.path === match.params.path);
 
   if (!product) {
-    return <p>Produkten du letar efter finns inte.</p>
+    return <p>Produkten du letar efter finns inte. Till startsidan, klicka&nbsp;
+      <Link style={{ color: "inherit" }} to="/">här!</Link></p>
   }
 
   return (
