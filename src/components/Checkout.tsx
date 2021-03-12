@@ -24,14 +24,13 @@ const useStyles = makeStyles((theme: any) => ({
 export default function Checkout() {
   const classes = useStyles();
   const { cart } = useContext(CartContext);
-  console.log(cart)
 
   return (
     <div className={classes.root}>
       <Container maxWidth="sm">
         <div>
           { cart.map(product => (
-            <div key={product.id}> {product.title} </div>
+            <div key={product.id}> {product.title} {product.price}</div>
           )) }
         </div>
         <div className={classes.infoContainer}>
@@ -40,6 +39,7 @@ export default function Checkout() {
             <TextField
               id="firstname"
               label="Förnamn"
+              required
               style={{ margin: 8 }}
               placeholder="MAJL"
               fullWidth
@@ -55,6 +55,7 @@ export default function Checkout() {
               style={{ margin: 8 }}
               placeholder="MAJLSSON"
               fullWidth
+              required
               margin="normal"
               InputLabelProps={{
                 shrink: true,
@@ -63,10 +64,35 @@ export default function Checkout() {
             />
             <TextField
               id="address"
+              required
               label="Adress"
               style={{ margin: 8 }}
               placeholder="MAJLSSONGATAN"
               fullWidth
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="outlined"
+            />
+            <TextField
+              id="postal-code"
+              label="Postnummer"
+              required
+              style={{ margin: 8 }}
+              placeholder="Postnummer"
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="outlined"
+            />
+            <TextField
+              id="city"
+              label="Postnummer"
+              required
+              style={{ margin: 8 }}
+              placeholder="Stad"
               margin="normal"
               InputLabelProps={{
                 shrink: true,
