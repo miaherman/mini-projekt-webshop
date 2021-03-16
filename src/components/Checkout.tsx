@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: any) => ({
 }));
 export default function Checkout() {
   const classes = useStyles();
-  const { cart } = useContext(CartContext);
+  const { cart, addToCart, removeFromCart } = useContext(CartContext);
 
   const [paymentValue, setPaymentValue] = React.useState("swish");
   const [deliveryValue, setDeliveryValue] = React.useState("express");
@@ -43,26 +43,32 @@ export default function Checkout() {
     setDeliveryValue(event.target.value);
   };
 
-  let group = cart.reduce((r: any, a: any) => {
-    console.log("a", a);
-    console.log("r", r);
-    r[a.title] = [...(r[a.title] || []), a];
-    return r;
-  }, []);
-  console.log("group", group);
-
   return (
     <div className={classes.root}>
       <Container maxWidth="sm">
         <div>
-          {cart.map((product: any) => (
-            <div key={product.id}>
-              <li>
-                {product.title}
-                {product.price}
-              </li>
+          <h2>Din kundvagn</h2>
+          {cart.length === 0 ? (
+            <p>Inga varor</p>
+          ) : (
+            <div>
+              {" "}
+              {cart.map((product: any) => (
+                <div key={product.id}>
+                  {product.title + " " + product.price + " " + product.quantity}
+                  <button onClick={() => addToCart(product)}>+</button>
+                  <button onClick={() => removeFromCart(product)}>-</button>
+                </div>
+              ))}
+              <h3>Totalt pris:</h3>
+              <div>
+                {cart.reduce(
+                  (a: any, b: any) => a +(b.price * b.quantity),
+                  0
+                )}
+              </div>
             </div>
-          ))}
+          )}
         </div>
         <div className={classes.infoContainer}>
           Fyll i dina uppgifter
@@ -140,7 +146,8 @@ export default function Checkout() {
               name="swish"
               value={paymentValue}
               onChange={handlePayment}
-              row>
+              row
+            >
               <FormControlLabel
                 value="swish"
                 control={<Radio />}
@@ -182,7 +189,8 @@ export default function Checkout() {
               name="express"
               value={deliveryValue}
               onChange={handleDelivery}
-              row>
+              row
+            >
               <FormControlLabel
                 value="express"
                 control={<Radio />}

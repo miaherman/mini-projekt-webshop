@@ -1,40 +1,85 @@
-import { Component, createContext } from 'react';
-import { Product } from '../products';
+import { Component, createContext } from "react";
+import { Product } from "../products";
 
+// Bytt ut från cart: Product till cart: any
 interface State {
-    cart: Product[]
+  cart: any[];
 }
 
 interface ContextValue extends State {
-    addToCart: (product: Product) => void;
+  addToCart: (product: Product) => void;
+  removeFromCart: (product: Product) => void;
 }
 
 export const CartContext = createContext<ContextValue>({
-    cart: [],
-    addToCart: () => {}
+  cart: [],
+  addToCart: () => {},
+  removeFromCart: () => {},
 });
 
 class CartProvider extends Component<{}, State> {
-    state: State = {
-        cart: []
+  state: State = {
+    cart: [],
+  };
+
+  // https://codesandbox.io/s/nnwl26w86l?file=/src/context/reducers.js:711-1026
+
+  addProductToCart = (product: Product) => {
+    const updatedCart = [...this.state.cart];
+
+    const updatedItemIndex = updatedCart.findIndex(
+      (item) => item.id === product.id
+    );
+
+    if (updatedItemIndex < 0) {
+      updatedCart.push({ ...product, quantity: 1 });
+    } else {
+      const updatedItem = {
+        ...updatedCart[updatedItemIndex],
+      };
+      updatedItem.quantity++;
+      updatedCart[updatedItemIndex] = updatedItem;
     }
 
-    addProductToCart = (product: Product) => {
-        const updatedCart = [...this.state.cart, product];
-        this.setState({ cart: updatedCart});
+    this.setState({ cart: updatedCart });
+    console.log(updatedCart);
+  };
+
+  removeProductFromCart = (product: Product) => {
+    const updatedCart = [...this.state.cart];
+
+    const updatedItemIndex = updatedCart.findIndex(
+      (item) => item.id === product.id
+    );
+
+    const updatedItem = {
+      ...updatedCart[updatedItemIndex],
+    };
+    updatedItem.quantity--;
+    if (updatedItem.quantity <= 0) {
+      updatedCart.splice(updatedItemIndex, 1);
+    } else {
+      updatedCart[updatedItemIndex] = updatedItem;
     }
 
-    render() {
-        return (
-            <CartContext.Provider value={{
-                cart: this.state.cart,
-                addToCart: this.addProductToCart
-            }}>
-                {this.props.children}
+    this.setState({ cart: updatedCart });
+    console.log(updatedCart);
+    console.log(updatedItemIndex);
+  };
 
-            </CartContext.Provider>
-        );
-    }
+  render() {
+    return (
+      <CartContext.Provider
+        value={{
+          cart: this.state.cart,
+          addToCart: this.addProductToCart,
+          removeFromCart: this.removeProductFromCart,
+        }}
+      >
+        {this.props.children}
+      </CartContext.Provider>
+    );
+  }
 }
 
 export default CartProvider;

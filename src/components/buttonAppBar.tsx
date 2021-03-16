@@ -45,7 +45,7 @@ export default function ButtonAppBar() {
           </Typography>
           <Button color="inherit">Login</Button>
             <IconButton aria-label="" color="inherit">
-              <Badge badgeContent={cart.length} color="secondary">
+              <Badge badgeContent={cart.reduce((a: any, b: any) => +a + +b.quantity, 0)} color="secondary">
 
               <Link style={{ color: "inherit" }} to='/checkout' onClick={() => {
                 console.info("clickme");
