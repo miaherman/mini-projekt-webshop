@@ -1,51 +1,120 @@
 import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { CartContext } from "../contexts/CartContext";
-import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
-import RemoveCircleOutlineOutlinedIcon from '@material-ui/icons/RemoveCircleOutlineOutlined';
-import { IconButton } from "@material-ui/core";
+import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
+import RemoveCircleOutlineOutlinedIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
+import { CardActions, IconButton } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 //import { products } from "./products";
 
 const useStyles = makeStyles((theme: any) => ({
-root: {
-    
-}
-  }));
+  root: {
+    margin: "1rem",
+    width: 180,
+  },
+  media: {
+    height: 220,
+  },
+  flex: {
+    display: "flex",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+}));
 
 function Cart() {
+  const classes = useStyles();
+  const { cart, addToCart, removeFromCart } = useContext(CartContext);
 
-    const classes = useStyles();
-    const { cart, addToCart, removeFromCart } = useContext(CartContext);
+  const getTotalPrice = () => {
+    // let sum = 0;
+    // for (const product of cart) {
+    //   sum + (product.price * product.quantity)
+    // }
+    // return sum;
+
+    return cart.reduce(
+      (sum, product) => sum + product.price * product.quantity,
+      0
+    );
+  };
 
   return (
-    <div>
-          <h2>Din kundvagn</h2>
-          {cart.length === 0 ? (
-            <p>Inga varor</p>
-          ) : (
-            <div>
-              {" "}
-              {cart.map((product: any) => (
-                <div key={product.id}>
-                  {product.title + " " + product.price + " " + product.quantity}
-                  <IconButton onClick={() => addToCart(product)} aria-label="" color="inherit">
+    <div style={{ width: "100%" }}>
+      <h2 style={{textAlign: 'center'}}>Din kundvagn</h2>
+      {cart.length === 0 ? (
+        <p style={{textAlign: 'center'}}>Inga varor</p>
+      ) : (
+        <div className={classes.flex}>
+          {cart.map((product) => (
+            <div key={product.id}>
+              <Card className={classes.root}>
+                <CardActionArea>
+                  <Link
+                    style={{ textDecoration: "none" }}
+                    to={`/products/${product.path}`}
+                  >
+                    <CardMedia
+                      className={classes.media}
+                      image={product.image}
+                      title={product.title}
+                    />
+                  </Link>
+
+                  <CardContent>
+                    <Typography gutterBottom variant="h6" component="h6">
+                      {product.title}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      {"Pris: " + product.price}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      {"Antal: " + product.quantity}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
+                  <IconButton
+                    onClick={() => addToCart(product)}
+                    aria-label=""
+                    color="inherit"
+                  >
                     <AddCircleOutlineOutlinedIcon />
-                </IconButton>
-                <IconButton onClick={() => removeFromCart(product)} aria-label="" color="inherit">
+                  </IconButton>
+                  <IconButton
+                    onClick={() => removeFromCart(product)}
+                    aria-label=""
+                    color="inherit"
+                  >
                     <RemoveCircleOutlineOutlinedIcon />
-                </IconButton>
-                </div>
-              ))}
-              <h3>Totalt pris:</h3>
-              <div>
-                {cart.reduce(
-                  (a: any, b: any) => a +(b.price * b.quantity),
-                  0
-                )} kr
-              </div>
+                  </IconButton>
+                </CardActions>
+              </Card>
             </div>
-          )}
+          ))}
         </div>
+      )}
+
+      <div style={{textAlign: 'center'}}>
+        <h3>Totalt pris:</h3>
+        <div>{getTotalPrice()} kr</div>
+      </div>
+    </div>
   );
 }
 

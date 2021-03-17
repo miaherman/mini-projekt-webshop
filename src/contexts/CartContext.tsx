@@ -1,9 +1,11 @@
 import { Component, createContext } from "react";
 import { Product } from "../products";
 
-// Bytt ut från cart: Product till cart: any
+interface CartItem extends Product {
+  quantity: number;
+}
 interface State {
-  cart: any[];
+  cart: CartItem[];
 }
 
 interface ContextValue extends State {
@@ -21,8 +23,6 @@ class CartProvider extends Component<{}, State> {
   state: State = {
     cart: [],
   };
-
-  // https://codesandbox.io/s/nnwl26w86l?file=/src/context/reducers.js:711-1026
 
   addProductToCart = (product: Product) => {
     const updatedCart = [...this.state.cart];

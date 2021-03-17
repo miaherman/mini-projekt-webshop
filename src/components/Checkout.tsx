@@ -26,8 +26,8 @@ export default function Checkout() {
 
   return (
     <div className={classes.root}>
-      <Container maxWidth="sm">
         <Cart />
+      <Container maxWidth="sm">
         <Address />
         <Payment />
         <Delivery />
