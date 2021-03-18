@@ -45,7 +45,7 @@ function Payment() {
                 />
             </RadioGroup>
             </FormControl>
-            <form autoComplete="on">
+            <div>
 
             {paymentValue === 'swish' ? (
                 <TextField
@@ -127,7 +127,7 @@ function Payment() {
             />
             ) 
             : <div></div>}
-            </form>
+            </div>
         </div>
     )
 }
