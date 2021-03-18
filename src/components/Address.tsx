@@ -30,7 +30,7 @@ function Address() {
               label="Förnamn"
               required
               style={{ margin: 8 }}
-              placeholder="MAJL"
+              placeholder="Förnamn"
               fullWidth
               margin="normal"
               InputLabelProps={{
@@ -42,7 +42,7 @@ function Address() {
               id="lastname"
               label="Efternamn"
               style={{ margin: 8 }}
-              placeholder="MAJLSSON"
+              placeholder="Efternamn"
               fullWidth
               required
               margin="normal"
@@ -56,7 +56,7 @@ function Address() {
               required
               label="Adress"
               style={{ margin: 8 }}
-              placeholder="MAJLSSONGATAN"
+              placeholder="Adress"
               fullWidth
               margin="normal"
               InputLabelProps={{
@@ -78,7 +78,7 @@ function Address() {
             />
             <TextField
               id="city"
-              label="Postnummer"
+              label="Stad"
               required
               style={{ margin: 8 }}
               placeholder="Stad"
@@ -87,6 +87,19 @@ function Address() {
                 shrink: true,
               }}
               variant="outlined"
+            />
+            <TextField
+                id="mobilenumber"
+                label="Mobilnummer"
+                required
+                style={{ margin: 8 }}
+                placeholder="07X XXXXXXX"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{
+                shrink: true,
+                }}
+                variant="outlined"
             />
           </form>
         </div>

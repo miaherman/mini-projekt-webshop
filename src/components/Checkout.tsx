@@ -38,3 +38,39 @@ export default function Checkout() {
     </div>
   );
 }
+
+
+async function mockApi(customer: any, cart: any, payment: any) {        
+    console.log(customer, cart, payment)
+    await timeOut()
+    return true
+}
+
+async function timeOut() {
+    return new Promise((resolve) => { setTimeout(resolve , 2000) })
+}
+
+async function completeBooking() {
+
+    const customer = {
+        name: "Pelle"
+    }
+
+    const cart = [
+        {
+            name: "Iphone"
+        },
+        {
+            name: "Nokia"
+        }
+    ]
+
+    const payment = {
+        type: "card",
+        cardNr: 42424242424242
+    }
+
+    const res = await mockApi(customer, cart, payment)
+    // --->
+    console.log("KLART")
+}

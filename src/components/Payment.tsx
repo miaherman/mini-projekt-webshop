@@ -11,7 +11,7 @@ import {
 
 function Payment() {
 
-    const [paymentValue, setPaymentValue] = React.useState("swish");
+    const [paymentValue, setPaymentValue] = React.useState("");
 
     const handlePayment = (event: any) => {
         setPaymentValue(event.target.value);
@@ -46,12 +46,15 @@ function Payment() {
             </RadioGroup>
             </FormControl>
             <form autoComplete="on">
-            <TextField
-                id="phone"
+
+            {paymentValue === 'swish' ? (
+                <TextField
+                id="mobilenumber"
+                type="number"
                 label="Mobilnummer"
                 required
                 style={{ margin: 8 }}
-                placeholder="Din mobil"
+                placeholder="07X XXXXXXX"
                 fullWidth
                 margin="normal"
                 InputLabelProps={{
@@ -59,6 +62,71 @@ function Payment() {
                 }}
                 variant="outlined"
             />
+            ) : paymentValue === 'card' ? (
+                <form autoComplete="on">
+<TextField
+                id="frmCCNum"
+                type="number"
+                label="Kortnummer"
+                required
+                autoComplete="cc-number"
+                style={{ margin: 8 }}
+                placeholder="0000 1111 2222 3333"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{
+                shrink: true,
+                }}
+                variant="outlined"
+            />
+            <TextField
+                id="frmCCExp"
+                type="number"
+                label="Datum"
+                autoComplete="cc-exp"
+                required
+                style={{ margin: 8 }}
+                placeholder="MM/ÅÅ"
+                margin="normal"
+                InputLabelProps={{
+                shrink: true,
+                }}
+                variant="outlined"
+            />
+            <TextField
+                type="number"
+                id="frmCCCVC"
+                label="CVV/CVC"
+                autoComplete="cc-csc"
+                required
+                style={{ margin: 8 }}
+                placeholder="CVV / CVC"
+                margin="normal"
+                InputLabelProps={{
+                shrink: true,
+                }}
+                variant="outlined"
+            />
+                </form>
+                
+            )
+            : paymentValue === 'invoice' ? (
+                <TextField
+                type="number"
+                id="personalnumbers"
+                label="Personnummer"
+                required
+                fullWidth
+                style={{ margin: 8 }}
+                placeholder="ÅÅÅÅMMDD-XXXX"
+                margin="normal"
+                InputLabelProps={{
+                shrink: true,
+                }}
+                variant="outlined"
+            />
+            ) 
+            : <div></div>}
             </form>
         </div>
     )
