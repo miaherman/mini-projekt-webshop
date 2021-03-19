@@ -4,7 +4,6 @@ import Container from "@material-ui/core/Container";
 import { CartContext } from "../contexts/CartContext";
 import Button from "@material-ui/core/Button";
 
-
 import Cart from "./Cart";
 import Delivery from "./Delivery";
 import Payment from "./Payment";
@@ -21,8 +20,10 @@ const useStyles = makeStyles((theme: any) => ({
     width: "100%",
   },
 }));
+
 export default function Checkout() {
   const classes = useStyles();
+  const { customer, cart } = useContext(CartContext);
 
   return (
     <div className={classes.root}>
@@ -31,7 +32,7 @@ export default function Checkout() {
         <Address />
         <Payment />
         <Delivery />
-        <Button className={classes.textField} variant="contained">
+        <Button onClick={ () => completeBooking(customer, cart)} className={classes.textField} variant="contained">
           Bekräfta beställning
         </Button>
       </Container>
@@ -40,8 +41,8 @@ export default function Checkout() {
 }
 
 
-async function mockApi(customer: any, cart: any, payment: any) {        
-    console.log(customer, cart, payment)
+async function mockApi(order: any) {        
+    console.log(order)
     await timeOut()
     return true
 }
@@ -50,27 +51,15 @@ async function timeOut() {
     return new Promise((resolve) => { setTimeout(resolve , 2000) })
 }
 
-async function completeBooking() {
+async function completeBooking(customer: any, cart: any) {
 
-    const customer = {
-        name: "Pelle"
+    const order = {
+        customer: customer,
+        cart: cart
     }
 
-    const cart = [
-        {
-            name: "Iphone"
-        },
-        {
-            name: "Nokia"
-        }
-    ]
-
-    const payment = {
-        type: "card",
-        cardNr: 42424242424242
-    }
-
-    const res = await mockApi(customer, cart, payment)
+    const res = await mockApi(order)
     // --->
-    console.log("KLART")
+    console.log(res)
+    
 }

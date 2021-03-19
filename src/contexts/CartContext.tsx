@@ -6,23 +6,33 @@ interface CartItem extends Product {
 }
 interface State {
   cart: CartItem[];
+  customer: any
 }
 
 interface ContextValue extends State {
   addToCart: (product: Product) => void;
   removeFromCart: (product: Product) => void;
+  createCustomer: (customer: any) => void;
 }
 
 export const CartContext = createContext<ContextValue>({
   cart: [],
   addToCart: () => {},
   removeFromCart: () => {},
+  customer: {},
+  createCustomer: () => {},
 });
 
 class CartProvider extends Component<{}, State> {
   state: State = {
     cart: [],
+    customer: {}
   };
+
+  createCustomer = (customer: any) => {
+    this.setState({ customer: customer })
+    console.log(customer)
+  }
 
   addProductToCart = (product: Product) => {
     const updatedCart = [...this.state.cart];
@@ -74,6 +84,8 @@ class CartProvider extends Component<{}, State> {
           cart: this.state.cart,
           addToCart: this.addProductToCart,
           removeFromCart: this.removeProductFromCart,
+          customer: this.state.customer,
+          createCustomer: this.createCustomer
         }}
       >
         {this.props.children}
