@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { CartContext } from "../contexts/CartContext";
+import { CartContext, Order } from "../contexts/CartContext";
 import Button from "@material-ui/core/Button";
 
 import Cart from "./Cart";
 import Delivery from "./Delivery";
 import Payment from "./Payment";
-import Address from "./Address";
+import Customer from "./Customer";
+
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -28,10 +29,10 @@ export default function Checkout() {
   return (
     <div className={classes.root}>
         <Cart />
-      <Container maxWidth="sm">
-        <Address />
-        <Payment />
+        <Container maxWidth="sm">
+        <Customer />
         <Delivery />
+        <Payment />
         <Button onClick={ () => completeBooking(customer, cart)} className={classes.textField} variant="contained">
           Bekräfta beställning
         </Button>
@@ -41,7 +42,7 @@ export default function Checkout() {
 }
 
 
-async function mockApi(order: any) {        
+async function mockApi(order: Order) {        
     console.log(order)
     await timeOut()
     return true
@@ -53,13 +54,20 @@ async function timeOut() {
 
 async function completeBooking(customer: any, cart: any) {
 
-    const order = {
+    const order: Order = {
+        id: 482623,
         customer: customer,
         cart: cart
     }
+
+    // empty cart & other info...
 
     const res = await mockApi(order)
     // --->
     console.log(res)
     
+}
+
+function randomOrderId() {
+
 }

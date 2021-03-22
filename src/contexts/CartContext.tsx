@@ -1,24 +1,41 @@
 import { Component, createContext } from "react";
 import { Product } from "../products";
 
+export interface Order {
+  id: number;
+  customer: Customer;
+  cart: CartItem[]
+}
+
+interface Customer {
+  address?: string;
+  city?: string;
+  firstName?: string;
+  lastName?: string;
+  mobileNumber?: string;
+  postalCode?: string;
+}
+
 interface CartItem extends Product {
   quantity: number;
 }
 interface State {
   cart: CartItem[];
-  customer: any
+  customer: Customer
 }
 
 interface ContextValue extends State {
   addToCart: (product: Product) => void;
   removeFromCart: (product: Product) => void;
-  createCustomer: (customer: any) => void;
+  emptyCart: () => void;
+  createCustomer: (customer: Customer) => void;
 }
 
 export const CartContext = createContext<ContextValue>({
   cart: [],
   addToCart: () => {},
   removeFromCart: () => {},
+  emptyCart: () => {},
   customer: {},
   createCustomer: () => {},
 });
@@ -84,6 +101,7 @@ class CartProvider extends Component<{}, State> {
           cart: this.state.cart,
           addToCart: this.addProductToCart,
           removeFromCart: this.removeProductFromCart,
+          emptyCart: () => {}, // Todo...
           customer: this.state.customer,
           createCustomer: this.createCustomer
         }}

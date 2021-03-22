@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React, { ChangeEvent, useContext } from 'react';
 import TextField from "@material-ui/core/TextField";
-import { makeStyles } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 import { useState } from "react";
 import { CartContext } from '../contexts/CartContext';
 
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: any) => ({
 
 
 
-function Address() {
+function Customer() {
     const classes = useStyles();
     const { createCustomer } = useContext(CartContext);
 
@@ -35,6 +35,13 @@ function Address() {
     const [postalCode, setPostalCode] = useState("");
     const [city, setCity] = useState("");
     const [mobileNumber, setMobileNumber] = useState("");
+    
+    const [firstNameError, setFirstNameError] = useState("");
+    const [lastNameError, setLastNameError] = useState("");
+    const [addressError, setAddressError] = useState("");
+    const [postalCodeError, setPostalCodeError] = useState("");
+    const [cityError, setCityError] = useState("");
+    const [mobileNumberError, setMobileNumberError] = useState("");
 
     const customer: any = {
       firstName: firstName,
@@ -44,7 +51,66 @@ function Address() {
       city: city,
       mobileNumber: mobileNumber
     }
+
+    const handleFirstNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+      setFirstName(e.target.value)
+      
+      if (!/^[a-öA-Ö]+$/.test(e.target.value)) {
+        setFirstNameError("Var god ange endast bokstäver");
+      } else {
+        setFirstNameError("");
+      }
+    }
+
+    const handleLastNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+      setLastName(e.target.value)
+      
+      if (!/^[a-öA-Ö]+$/.test(e.target.value)) {
+        setLastNameError("Var god ange endast bokstäver");
+      } else {
+        setLastNameError("");
+      }
+    }
     
+    const handleAddressChange = (e: ChangeEvent<HTMLInputElement>) => {
+      setAddress(e.target.value)
+      
+      if (!/^[a-öA-Ö0-9" "]+$/.test(e.target.value)) {
+        setAddressError("Var god ange endast bokstäver och siffror");
+      } else {
+        setAddressError("");
+      }
+    }
+   
+    const handlePostalCodeChange = (e: ChangeEvent<HTMLInputElement>) => {
+      setPostalCode(e.target.value)
+      
+      if (!/^(s-|S-){0,1}[0-9]{3}\s?[0-9]{2}$/.test(e.target.value)) {
+        setPostalCodeError("Var god ange 5 siffror");
+      } else {
+        setPostalCodeError("");
+      }
+    }
+
+    const handleCityChange = (e: ChangeEvent<HTMLInputElement>) => {
+      setCity(e.target.value)
+      
+      if (!/^[a-öA-Ö]+$/.test(e.target.value)) {
+        setCityError("Var god ange endast bokstäver");
+      } else {
+        setCityError("");
+      }
+    }
+    
+    const handleMobileNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
+      setMobileNumber(e.target.value)
+      
+      if (!/^[0-9]+$/.test(e.target.value)) {
+        setMobileNumberError("Var god ange endast siffror");
+      } else {
+        setMobileNumberError("");
+      }
+    }
     // console.log(firstName)
     // console.log(lastName)
     // console.log(address)
@@ -57,7 +123,7 @@ function Address() {
           Fyll i dina uppgifter
           <form autoComplete="on">
             <TextField             
-              onChange={e => setFirstName(e.target.value)}
+              onChange={handleFirstNameChange}
               id="firstname"
               label="Förnamn"
               required
@@ -69,9 +135,11 @@ function Address() {
                 shrink: true
               }}
               variant="outlined"
+              helperText={firstNameError}
+              error={Boolean(firstNameError)}
             />
             <TextField
-              onChange={e => setLastName(e.target.value)}
+              onChange={handleLastNameChange}
               id="lastname"
               label="Efternamn"
               style={{ margin: 8 }}
@@ -83,9 +151,11 @@ function Address() {
                 shrink: true,
               }}
               variant="outlined"
+              helperText={lastNameError}
+              error={Boolean(lastNameError)}
             />
             <TextField
-              onChange={e => setAddress(e.target.value)}
+              onChange={handleAddressChange}
               id="address"
               required
               label="Adress"
@@ -97,9 +167,11 @@ function Address() {
                 shrink: true,
               }}
               variant="outlined"
+              helperText={addressError}
+              error={Boolean(addressError)}
             />
             <TextField
-              onChange={e => setPostalCode(e.target.value)}
+              onChange={handlePostalCodeChange}
               id="postal-code"
               label="Postnummer"
               required
@@ -110,9 +182,11 @@ function Address() {
                 shrink: true,
               }}
               variant="outlined"
+              helperText={postalCodeError}
+              error={Boolean(postalCodeError)}
             />
             <TextField
-              onChange={e => setCity(e.target.value)}
+              onChange={handleCityChange}
               id="city"
               label="Stad"
               required
@@ -123,9 +197,11 @@ function Address() {
                 shrink: true,
               }}
               variant="outlined"
+              helperText={cityError}
+              error={Boolean(cityError)}
             />
             <TextField
-                onChange={e => setMobileNumber(e.target.value)}
+                onChange={handleMobileNumberChange}
                 id="mobilenumber"
                 label="Mobilnummer"
                 required
@@ -137,11 +213,13 @@ function Address() {
                 shrink: true,
                 }}
                 variant="outlined"
+                helperText={mobileNumberError}
+                error={Boolean(mobileNumberError)}
             />
           </form>
-          <button onClick={ () => createCustomer(customer)}>SKAPA KUND</button>
+          <Button variant="contained" className={classes.textField} onClick={ () => createCustomer(customer)}>Gå vidare</Button>
         </div>
     )
 }
 
-export default Address;
+export default Customer;
