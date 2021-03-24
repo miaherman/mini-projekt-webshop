@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import TextField from "@material-ui/core/TextField";
 
 import {
@@ -8,8 +8,12 @@ import {
   Radio,
   RadioGroup,
 } from "@material-ui/core";
+import { CartContext } from "../contexts/CartContext";
+
+
 
 function Payment() {
+  const { customer } = useContext(CartContext);
   const [paymentValue, setPaymentValue] = React.useState("");
 
   const handlePayment = (event: any) => {
@@ -32,6 +36,7 @@ function Payment() {
             value="card"
             control={<Radio />}
             label="Betalkort"
+            
           />
           <FormControlLabel
             value="invoice"
@@ -44,6 +49,7 @@ function Payment() {
         {paymentValue === "swish" ? (
           <TextField
             id="mobilenumber"
+            value={customer.mobileNumber}
             type="number"
             label="Mobilnummer"
             required
@@ -105,6 +111,7 @@ function Payment() {
         ) : paymentValue === "invoice" ? (
           <TextField
             type="number"
+            value=""
             id="personalnumbers"
             label="Personnummer"
             required

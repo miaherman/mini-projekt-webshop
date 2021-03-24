@@ -30,20 +30,9 @@ const useStyles = makeStyles((theme: any) => ({
 
 function Cart() {
   const classes = useStyles();
-  const { cart, addToCart, removeFromCart } = useContext(CartContext);
+  const { orderPrice, cart, addToCart, removeFromCart } = useContext(CartContext);
 
-  const getTotalPrice = () => {
-    // let sum = 0;
-    // for (const product of cart) {
-    //   sum + (product.price * product.quantity)
-    // }
-    // return sum;
 
-    return cart.reduce(
-      (sum, product) => sum + product.price * product.quantity,
-      0
-    );
-  };
 
   return (
     <div style={{ width: "100%" }}>
@@ -111,7 +100,7 @@ function Cart() {
 
       <div style={{textAlign: 'center'}}>
         <h3>Totalt pris:</h3>
-        <div>{getTotalPrice()} kr</div>
+        <div>{orderPrice} kr</div>
       </div>
     </div>
   );

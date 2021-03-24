@@ -2,8 +2,7 @@ import React, { ChangeEvent, useContext } from 'react';
 import TextField from "@material-ui/core/TextField";
 import { Button, makeStyles } from '@material-ui/core';
 import { useState } from "react";
-import { CartContext } from '../contexts/CartContext';
-
+import { CartContext, Customer } from '../contexts/CartContext';
 
 const useStyles = makeStyles((theme: any) => ({
     root: {
@@ -22,10 +21,7 @@ const useStyles = makeStyles((theme: any) => ({
     },
   }));
 
-
-
-
-function Customer() {
+function CustomerInfo() {
     const classes = useStyles();
     const { createCustomer } = useContext(CartContext);
 
@@ -43,7 +39,7 @@ function Customer() {
     const [cityError, setCityError] = useState("");
     const [mobileNumberError, setMobileNumberError] = useState("");
 
-    const customer: any = {
+    const customer: Customer = {
       firstName: firstName,
       lastName: lastName,
       address: address,
@@ -222,4 +218,4 @@ function Customer() {
     )
 }
 
-export default Customer;
+export default CustomerInfo;

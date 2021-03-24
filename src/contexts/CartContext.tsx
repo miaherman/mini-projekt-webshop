@@ -4,10 +4,11 @@ import { Product } from "../products";
 export interface Order {
   id: number;
   customer: Customer;
-  cart: CartItem[]
+  cart: CartItem[];
+  totalPrice: number;
 }
 
-interface Customer {
+export interface Customer {
   address?: string;
   city?: string;
   firstName?: string;
@@ -16,12 +17,14 @@ interface Customer {
   postalCode?: string;
 }
 
-interface CartItem extends Product {
+export interface CartItem extends Product {
   quantity: number;
 }
 interface State {
   cart: CartItem[];
-  customer: Customer
+  customer: Customer;
+  orderPrice: number;
+  deliveryPrice: number;
 }
 
 interface ContextValue extends State {
@@ -29,6 +32,8 @@ interface ContextValue extends State {
   removeFromCart: (product: Product) => void;
   emptyCart: () => void;
   createCustomer: (customer: Customer) => void;
+  getOrderPrice: (cart: CartItem[]) => void;
+  getDeliveryPrice: (deliveryPrice: number) => void;
 }
 
 export const CartContext = createContext<ContextValue>({
@@ -38,15 +43,44 @@ export const CartContext = createContext<ContextValue>({
   emptyCart: () => {},
   customer: {},
   createCustomer: () => {},
+  orderPrice: 0,
+  getOrderPrice: () => {},
+  deliveryPrice: 0,
+  getDeliveryPrice: () => {}
 });
 
 class CartProvider extends Component<{}, State> {
   state: State = {
     cart: [],
-    customer: {}
+    customer: {},
+    orderPrice: 0,
+    deliveryPrice: 0
+  };
+  
+  getOrderPrice = (cart: CartItem[]) => {
+    // let sum = 0;
+    // for (const product of cart) {
+    //   sum + (product.price * product.quantity)
+    // }
+    // return sum;
+
+    let price = cart.reduce(
+      (sum, product) => sum + product.price * product.quantity,
+      0
+    );
+
+    this.setState({ orderPrice: price });
+
   };
 
-  createCustomer = (customer: any) => {
+  getDeliveryPrice = (deliveryPrice: number) => {
+
+    this.setState({ deliveryPrice: deliveryPrice });
+    console.log(deliveryPrice)
+
+  };
+
+  createCustomer = (customer: Customer) => {
     this.setState({ customer: customer })
     console.log(customer)
   }
@@ -68,6 +102,7 @@ class CartProvider extends Component<{}, State> {
       updatedCart[updatedItemIndex] = updatedItem;
     }
 
+    this.getOrderPrice(updatedCart)
     this.setState({ cart: updatedCart });
     console.log(updatedCart);
   };
@@ -89,6 +124,7 @@ class CartProvider extends Component<{}, State> {
       updatedCart[updatedItemIndex] = updatedItem;
     }
 
+    this.getOrderPrice(updatedCart)
     this.setState({ cart: updatedCart });
     console.log(updatedCart);
     console.log(updatedItemIndex);
@@ -103,7 +139,11 @@ class CartProvider extends Component<{}, State> {
           removeFromCart: this.removeProductFromCart,
           emptyCart: () => {}, // Todo...
           customer: this.state.customer,
-          createCustomer: this.createCustomer
+          createCustomer: this.createCustomer,
+          getOrderPrice: this.getOrderPrice,
+          orderPrice: this.state.orderPrice,
+          getDeliveryPrice: this.getDeliveryPrice,
+          deliveryPrice: this.state.deliveryPrice
         }}
       >
         {this.props.children}
