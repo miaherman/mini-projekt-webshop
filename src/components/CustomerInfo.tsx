@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme: any) => ({
       width: "100%",
     },
     infoContainer: {
-      marginTop: "10rem",
       justifyContent: "center",
       textAlign: "center",
     },
@@ -48,6 +47,7 @@ function CustomerInfo() {
       mobileNumber: mobileNumber
     }
 
+    
     const handleFirstNameChange = (e: ChangeEvent<HTMLInputElement>) => {
       setFirstName(e.target.value)
       
@@ -116,7 +116,6 @@ function CustomerInfo() {
     
     return(
         <div className={classes.infoContainer}>
-          Fyll i dina uppgifter
           <form autoComplete="on">
             <TextField             
               onChange={handleFirstNameChange}

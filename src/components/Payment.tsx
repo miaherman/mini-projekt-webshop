@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 
 import {
@@ -15,15 +15,19 @@ import { CartContext } from "../contexts/CartContext";
 function Payment() {
   const { customer } = useContext(CartContext);
   const [paymentValue, setPaymentValue] = React.useState("");
+  const [swishNumber, setSwishNumber] = React.useState(customer.mobileNumber)
 
   const handlePayment = (event: any) => {
     setPaymentValue(event.target.value);
   };
 
+  useEffect(() => {
+    setSwishNumber(customer.mobileNumber);
+  }, [customer.mobileNumber])
+
   return (
     <div>
       <FormControl component="fieldset">
-        <FormLabel component="legend">Välj betalsätt</FormLabel>
         <RadioGroup
           aria-label="swish"
           name="swish"
@@ -48,8 +52,10 @@ function Payment() {
       <div>
         {paymentValue === "swish" ? (
           <TextField
+            key="mobilenumber"
             id="mobilenumber"
-            value={customer.mobileNumber}
+            value={swishNumber}
+            onChange={(e) => setSwishNumber(e.target.value)}
             type="number"
             label="Mobilnummer"
             required
@@ -110,8 +116,8 @@ function Payment() {
           </form>
         ) : paymentValue === "invoice" ? (
           <TextField
+            key="personnumber"
             type="number"
-            value=""
             id="personalnumbers"
             label="Personnummer"
             required

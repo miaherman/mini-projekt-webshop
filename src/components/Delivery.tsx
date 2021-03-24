@@ -57,7 +57,6 @@ function Delivery() {
     return (
         <div>
           <FormControl component="fieldset">
-            <FormLabel component="legend">Välj fraktsätt</FormLabel>
             <RadioGroup
               aria-label="express"
               name="express"
@@ -82,7 +81,7 @@ function Delivery() {
               />
             </RadioGroup>
           </FormControl>
-          <Button onClick={ () => getDeliveryPrice(delivery) }>Gå vidare till betalsätt</Button>
+          <Button variant="contained" onClick={ () => getDeliveryPrice(delivery) }>Gå vidare till betalsätt</Button>
         </div>
     )
 }

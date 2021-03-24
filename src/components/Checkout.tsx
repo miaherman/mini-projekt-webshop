@@ -9,6 +9,7 @@ import Delivery from "./Delivery";
 import Payment from "./Payment";
 import CustomerInfo from "./CustomerInfo";
 
+import VerticalLinearStepper from "./stepper";
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -30,9 +31,12 @@ export default function Checkout() {
     <div className={classes.root}>
         <Cart />
         <Container maxWidth="sm">
-        <CustomerInfo />
+          <VerticalLinearStepper />
+
+        {/* <CustomerInfo />
         <Delivery />
-        <Payment />
+        <Payment /> */}
+
         <Button onClick={ () => completeBooking(customer, cart, orderPrice, deliveryPrice)} className={classes.textField} variant="contained">
           Bekräfta beställning
         </Button>
@@ -55,7 +59,7 @@ async function timeOut() {
 async function completeBooking(customer: Customer, cart: CartItem[], orderPrice: number, deliveryPrice: number) {
 
     const order: Order = {
-        id: 482623,
+        id: getRandomInt(10000, 99999),
         customer: customer,
         cart: cart,
         totalPrice: orderPrice + deliveryPrice
@@ -69,6 +73,7 @@ async function completeBooking(customer: Customer, cart: CartItem[], orderPrice:
     
 }
 
-function randomOrderId() {
- //loop som gör id
+function getRandomInt(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min) + min);
 }
+
