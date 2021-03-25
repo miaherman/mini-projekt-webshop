@@ -5,7 +5,7 @@ import { CartContext, Order, Customer, Delivery, CartItem } from "../contexts/Ca
 import Button from "@material-ui/core/Button";
 
 import Cart from "./Cart";
-import Payment from "./Payment";
+import PaymentInfo from "./PaymentInfo";
 import CustomerInfo from "./CustomerInfo";
 
 import VerticalLinearStepper from "./stepper";
@@ -16,9 +16,8 @@ const useStyles = makeStyles((theme: any) => ({
     flexWrap: "wrap",
   },
   textField: {
-    marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: "100%",
+    width: "100%"
   },
 }));
 
@@ -75,5 +74,7 @@ async function completeBooking(customer: Customer, cart: CartItem[], orderPrice:
 
 function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min) + min);
-}
+ }
+
+
 

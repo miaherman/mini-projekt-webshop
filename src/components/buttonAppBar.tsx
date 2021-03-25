@@ -41,9 +41,8 @@ export default function ButtonAppBar() {
             </IconButton>
           </Link>
           <Typography variant="h6" className={classes.title}>
-            Prints
+            Printyprint
           </Typography>
-          <Button color="inherit">Login</Button>
           <Link style={{ color: "inherit" }} to='/checkout' onClick={() => {
                 console.info("clickme");
               }}>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { ChangeEvent, useContext, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 
 import {
@@ -10,15 +10,13 @@ import {
 } from "@material-ui/core";
 import { CartContext } from "../contexts/CartContext";
 
-
-
-function Payment() {
-  const { customer } = useContext(CartContext);
-  const [paymentValue, setPaymentValue] = React.useState("");
+function PaymentInfo() {
+  const { customer, getPayment, payment } = useContext(CartContext);
   const [swishNumber, setSwishNumber] = React.useState(customer.mobileNumber)
 
-  const handlePayment = (event: any) => {
-    setPaymentValue(event.target.value);
+  const handlePayment = (e: ChangeEvent<HTMLInputElement>) => {
+      getPayment({...payment, paymentType: e.target.value })
+    
   };
 
   useEffect(() => {
@@ -31,7 +29,7 @@ function Payment() {
         <RadioGroup
           aria-label="swish"
           name="swish"
-          value={paymentValue}
+          value={payment.paymentType}
           onChange={handlePayment}
           row
         >
@@ -50,7 +48,7 @@ function Payment() {
         </RadioGroup>
       </FormControl>
       <div>
-        {paymentValue === "swish" ? (
+        {payment.paymentType === "swish" ? (
           <TextField
             key="mobilenumber"
             id="mobilenumber"
@@ -68,7 +66,7 @@ function Payment() {
             }}
             variant="outlined"
           />
-        ) : paymentValue === "card" ? (
+        ) : payment.paymentType === "card" ? (
           <form autoComplete="on">
             <TextField
               id="frmCCNum"
@@ -114,7 +112,7 @@ function Payment() {
               variant="outlined"
             />
           </form>
-        ) : paymentValue === "invoice" ? (
+        ) : payment.paymentType === "invoice" ? (
           <TextField
             key="personnumber"
             type="number"
@@ -138,4 +136,4 @@ function Payment() {
   );
 }
 
-export default Payment;
+export default PaymentInfo;

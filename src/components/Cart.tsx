@@ -99,7 +99,7 @@ function Cart() {
       )}
 
       <div style={{textAlign: 'center'}}>
-        <h3>Totalt pris:</h3>
+        <h3>Totalt pris(ex frakt):</h3>
         <div>{orderPrice} kr</div>
       </div>
     </div>

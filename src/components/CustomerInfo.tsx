@@ -20,7 +20,11 @@ const useStyles = makeStyles((theme: any) => ({
     },
   }));
 
-function CustomerInfo() {
+interface Props {
+  onErrorChange: (error: boolean) => void;
+}
+
+function CustomerInfo({ onErrorChange }: Props) {
     const classes = useStyles();
     const { customer, createCustomer } = useContext(CartContext);
     
@@ -30,6 +34,10 @@ function CustomerInfo() {
     const [postalCodeError, setPostalCodeError] = useState("");
     const [cityError, setCityError] = useState("");
     const [mobileNumberError, setMobileNumberError] = useState("");
+    
+    useEffect(() => {
+      onErrorChange(Boolean(firstNameError || lastNameError || addressError || postalCodeError || cityError || mobileNumberError))
+    }, [firstNameError, lastNameError, addressError, postalCodeError, cityError, mobileNumberError])
     
     const handleFirstNameChange = (e: ChangeEvent<HTMLInputElement>) => {
       createCustomer({ ...customer, firstName: e.target.value })

@@ -18,6 +18,9 @@ export interface Customer {
   postalCode?: string;
 }
 
+export interface Payment {
+  paymentType: string
+}
 export interface Delivery {
   deliveryType: string;
   deliveryPrice: number;
@@ -30,7 +33,9 @@ interface State {
   cart: CartItem[];
   customer: Customer;
   orderPrice: number;
+  orderId: number;
   delivery: Delivery;
+  payment: Payment
 }
 
 interface ContextValue extends State {
@@ -39,7 +44,9 @@ interface ContextValue extends State {
   emptyCart: () => void;
   createCustomer: (customer: Customer) => void;
   getOrderPrice: (cart: CartItem[]) => void;
+  getOrderId: (min: number, max: number) => void;
   getDelivery: (delivery: Delivery) => void;
+  getPayment: (payment: Payment) => void;
 }
 
 export const CartContext = createContext<ContextValue>({
@@ -51,11 +58,17 @@ export const CartContext = createContext<ContextValue>({
   createCustomer: () => {},
   orderPrice: 0,
   getOrderPrice: () => {},
+  orderId: 0,
+  getOrderId: () => {},
   delivery: {
     deliveryType: "",
     deliveryPrice: 0,
   },
-  getDelivery: () => {}
+  getDelivery: () => {},
+  getPayment: () => {},
+  payment: {
+    paymentType: ''
+  }
 });
 
 class CartProvider extends Component<{}, State> {
@@ -63,9 +76,13 @@ class CartProvider extends Component<{}, State> {
     cart: [],
     customer: {},
     orderPrice: 0,
+    orderId: 0,
     delivery: {
       deliveryType: "",
       deliveryPrice: 0,
+    },
+    payment: {
+      paymentType: ''
     }
   };
   
@@ -85,10 +102,23 @@ class CartProvider extends Component<{}, State> {
 
   };
 
+  getOrderId(min: number, max: number) {
+
+    const randomOrderID = Math.floor(Math.random() * (max - min) + min)
+    this.setState({ orderId: randomOrderID })
+   }
+
   getDelivery = (delivery: Delivery) => {
 
     this.setState({ delivery: delivery });
     console.log(delivery)
+
+  };
+
+  getPayment = (payment: Payment) => {
+
+    this.setState({ payment: payment });
+    console.log(payment)
 
   };
 
@@ -154,8 +184,12 @@ class CartProvider extends Component<{}, State> {
           createCustomer: this.createCustomer,
           getOrderPrice: this.getOrderPrice,
           orderPrice: this.state.orderPrice,
+          getOrderId: this.getOrderId,
+          orderId: this.state.orderId,
           getDelivery: this.getDelivery,
-          delivery: this.state.delivery
+          delivery: this.state.delivery,
+          getPayment: this.getPayment,
+          payment: this.state.payment
         }}
       >
         {this.props.children}

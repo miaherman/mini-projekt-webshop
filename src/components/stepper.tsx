@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CustomerInfo from "./CustomerInfo";
 import DeliveryInfo from './DeliveryInfo';
-import Payment from './Payment';
+import PaymentInfo from './PaymentInfo';
 import { CartContext } from '../contexts/CartContext';
 import Orderconfirmation from './Orderconfirmation';
 
@@ -41,37 +41,22 @@ function getSteps() {
 export default function VerticalLinearStepper() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-  // const [hasErrorInForm, setHasErrorInForm] = React.useState(false);
+  const [hasErrorInForm, setHasErrorInForm] = React.useState(false);
   const steps = getSteps();
   const { cart, customer, createCustomer } = useContext(CartContext);
 
   function getStepContent(step: number) {
     switch (step) {
       case 0:
-        return <CustomerInfo />
+        return <CustomerInfo onErrorChange={setHasErrorInForm} />
       case 1:
         return <DeliveryInfo />
       case 2:
-        return <Payment />
+        return <PaymentInfo />
       default:
         return 'Unknown step';
     }
   }
-
-//   const function1 = () => {
-//       console.log('skapa kund')
-//       handleNext()
-//   }
-
-//   const function2 = () => {
-//     console.log('skapa leverans')
-//     handleNext()
-// }
-
-// const function3 = () => {
-//     console.log('skapa betalning')
-//     handleNext()
-// }
  
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -100,15 +85,16 @@ export default function VerticalLinearStepper() {
                     onClick={handleBack}
                     className={classes.button}
                   >
-                    Back
+                    Tillbaka
                   </Button>
                   <Button
+                    disabled={hasErrorInForm}
                     variant="contained"
                     color="primary"
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                    Gå vidare
                   </Button>
                 </div>
               </div>
@@ -120,7 +106,7 @@ export default function VerticalLinearStepper() {
         <Paper square elevation={0} className={classes.resetContainer}>
           <Typography><Orderconfirmation></Orderconfirmation></Typography>
           <Button onClick={handleReset} className={classes.button}>
-            Reset
+            Ändra dina uppgifter
           </Button>
         </Paper>
       )}

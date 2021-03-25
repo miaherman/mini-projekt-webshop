@@ -1,20 +1,28 @@
-import React, { useContext } from 'react';
-import { CartContext } from '../contexts/CartContext';
+import React, { useContext, useEffect } from "react";
+import { CartContext } from "../contexts/CartContext";
 
 const Orderconfirmation = () => {
+  const { cart, orderPrice, delivery, customer } = useContext(CartContext);
 
-const { cart, customer, delivery } = useContext(CartContext);
-
-    return (
+  return (
+    <div>
+      <h1>Kontrollera din beställning </h1>
+      {customer.firstName}&nbsp;
+      {customer.lastName}&nbsp;
+      {delivery.deliveryType}&nbsp;
+      {delivery.deliveryPrice} kr
+      {cart.map((product) => (
         <div>
-            <h1>Tack för din beställning: </h1>{customer.firstName}&nbsp;
-            {customer.lastName}&nbsp;
-
-            {delivery.deliveryType}
-            {delivery.deliveryPrice}
-            Ditt ordernummer är: 
+          <span>{product.title}&nbsp;</span>
+          {/* <span>{product.price}</span> */}
+          <span>{product.quantity}&nbsp;st</span>
         </div>
-    );
+        
+      ))}
+      <span>TOTALT: {orderPrice + delivery.deliveryPrice}&nbsp;kr</span>
+      
+    </div>
+  );
 };
 
 export default Orderconfirmation;
