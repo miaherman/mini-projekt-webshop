@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CustomerInfo from "./CustomerInfo";
-import Delivery from './Delivery';
+import DeliveryInfo from './DeliveryInfo';
 import Payment from './Payment';
 import { CartContext } from '../contexts/CartContext';
 
@@ -34,24 +34,27 @@ function getSteps() {
   return ['Fyll i dina personuppgifter', 'Välj typ av leverans', 'Välj betalningssätt'];
 }
 
-function getStepContent(step: number) {
-  switch (step) {
-    case 0:
-      return <CustomerInfo />
-    case 1:
-      return <Delivery />
-    case 2:
-      return <Payment />
-    default:
-      return 'Unknown step';
-  }
-}
+
 
 export default function VerticalLinearStepper() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  // const [hasErrorInForm, setHasErrorInForm] = React.useState(false);
   const steps = getSteps();
   const { customer, createCustomer } = useContext(CartContext);
+
+  function getStepContent(step: number) {
+    switch (step) {
+      case 0:
+        return <CustomerInfo />
+      case 1:
+        return <DeliveryInfo />
+      case 2:
+        return <Payment />
+      default:
+        return 'Unknown step';
+    }
+  }
 
 //   const function1 = () => {
 //       console.log('skapa kund')

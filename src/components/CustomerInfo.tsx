@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext } from 'react';
+import React, { ChangeEvent, useContext, useEffect } from 'react';
 import TextField from "@material-ui/core/TextField";
 import { Button, makeStyles } from '@material-ui/core';
 import { useState } from "react";
@@ -22,14 +22,7 @@ const useStyles = makeStyles((theme: any) => ({
 
 function CustomerInfo() {
     const classes = useStyles();
-    const { createCustomer } = useContext(CartContext);
-
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [address, setAddress] = useState("");
-    const [postalCode, setPostalCode] = useState("");
-    const [city, setCity] = useState("");
-    const [mobileNumber, setMobileNumber] = useState("");
+    const { customer, createCustomer } = useContext(CartContext);
     
     const [firstNameError, setFirstNameError] = useState("");
     const [lastNameError, setLastNameError] = useState("");
@@ -37,19 +30,9 @@ function CustomerInfo() {
     const [postalCodeError, setPostalCodeError] = useState("");
     const [cityError, setCityError] = useState("");
     const [mobileNumberError, setMobileNumberError] = useState("");
-
-    const customer: Customer = {
-      firstName: firstName,
-      lastName: lastName,
-      address: address,
-      postalCode: postalCode,
-      city: city,
-      mobileNumber: mobileNumber
-    }
-
     
     const handleFirstNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-      setFirstName(e.target.value)
+      createCustomer({ ...customer, firstName: e.target.value })
       
       if (!/^[a-öA-Ö]+$/.test(e.target.value)) {
         setFirstNameError("Var god ange endast bokstäver");
@@ -59,7 +42,7 @@ function CustomerInfo() {
     }
 
     const handleLastNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-      setLastName(e.target.value)
+      createCustomer({ ...customer, lastName: e.target.value })
       
       if (!/^[a-öA-Ö]+$/.test(e.target.value)) {
         setLastNameError("Var god ange endast bokstäver");
@@ -69,7 +52,7 @@ function CustomerInfo() {
     }
     
     const handleAddressChange = (e: ChangeEvent<HTMLInputElement>) => {
-      setAddress(e.target.value)
+      createCustomer({ ...customer, address: e.target.value })
       
       if (!/^[a-öA-Ö0-9" "]+$/.test(e.target.value)) {
         setAddressError("Var god ange endast bokstäver och siffror");
@@ -79,7 +62,7 @@ function CustomerInfo() {
     }
    
     const handlePostalCodeChange = (e: ChangeEvent<HTMLInputElement>) => {
-      setPostalCode(e.target.value)
+      createCustomer({ ...customer, postalCode: e.target.value })
       
       if (!/^(s-|S-){0,1}[0-9]{3}\s?[0-9]{2}$/.test(e.target.value)) {
         setPostalCodeError("Var god ange 5 siffror");
@@ -89,7 +72,7 @@ function CustomerInfo() {
     }
 
     const handleCityChange = (e: ChangeEvent<HTMLInputElement>) => {
-      setCity(e.target.value)
+      createCustomer({ ...customer, city: e.target.value })
       
       if (!/^[a-öA-Ö]+$/.test(e.target.value)) {
         setCityError("Var god ange endast bokstäver");
@@ -99,7 +82,7 @@ function CustomerInfo() {
     }
     
     const handleMobileNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
-      setMobileNumber(e.target.value)
+      createCustomer({ ...customer, mobileNumber: e.target.value })
       
       if (!/^[0-9]+$/.test(e.target.value)) {
         setMobileNumberError("Var god ange endast siffror");
@@ -117,7 +100,8 @@ function CustomerInfo() {
     return(
         <div className={classes.infoContainer}>
           <form autoComplete="on">
-            <TextField             
+            <TextField
+              value={customer.firstName}             
               onChange={handleFirstNameChange}
               id="firstname"
               label="Förnamn"
@@ -134,6 +118,7 @@ function CustomerInfo() {
               error={Boolean(firstNameError)}
             />
             <TextField
+              value={customer.lastName}
               onChange={handleLastNameChange}
               id="lastname"
               label="Efternamn"
@@ -150,6 +135,7 @@ function CustomerInfo() {
               error={Boolean(lastNameError)}
             />
             <TextField
+              value={customer.address}
               onChange={handleAddressChange}
               id="address"
               required
@@ -166,6 +152,7 @@ function CustomerInfo() {
               error={Boolean(addressError)}
             />
             <TextField
+              value={customer.postalCode}
               onChange={handlePostalCodeChange}
               id="postal-code"
               label="Postnummer"
@@ -181,6 +168,7 @@ function CustomerInfo() {
               error={Boolean(postalCodeError)}
             />
             <TextField
+              value={customer.city}
               onChange={handleCityChange}
               id="city"
               label="Stad"
@@ -196,6 +184,7 @@ function CustomerInfo() {
               error={Boolean(cityError)}
             />
             <TextField
+                value={customer.mobileNumber}
                 onChange={handleMobileNumberChange}
                 id="mobilenumber"
                 label="Mobilnummer"
@@ -212,7 +201,6 @@ function CustomerInfo() {
                 error={Boolean(mobileNumberError)}
             />
           </form>
-          <Button variant="contained" className={classes.textField} onClick={ () => createCustomer(customer)}>Gå vidare</Button>
         </div>
     )
 }

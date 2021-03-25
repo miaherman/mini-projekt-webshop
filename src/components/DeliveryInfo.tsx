@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { ChangeEvent, useContext } from 'react';
 import {
   Button,
     FormControl,
@@ -18,24 +18,24 @@ import { CartContext } from "../contexts/CartContext";
     },
   }));
 
-function Delivery() {
-    const { getDeliveryPrice } = useContext(CartContext);
-
+function DeliveryInfo() {
+    const { delivery, getDelivery } = useContext(CartContext);
+    
     const [deliveryValue, setDeliveryValue] = React.useState("express");
 
-    let delivery: number;
+    let delivery2: number;
 
     if (deliveryValue === 'express') {
-      delivery = 100;
+      delivery2 = 100;
     } else if (deliveryValue === 'instabox') {
-      delivery = 50;
+      delivery2 = 50;
     } else if (deliveryValue === 'postnord') {
-      delivery = 0;
+      delivery2 = 0;
     }
-    
 
-    const handleDelivery = (event: any) => {
-      setDeliveryValue(event.target.value);
+    const handleDelivery = (e: ChangeEvent<HTMLInputElement>) => {
+      //setDeliveryValue(event.target.value);
+      getDelivery({ ...delivery, deliveryPrice: e.target.value })
     };
 
     let current_datetime = new Date()
@@ -81,9 +81,9 @@ function Delivery() {
               />
             </RadioGroup>
           </FormControl>
-          <Button variant="contained" onClick={ () => getDeliveryPrice(delivery) }>Gå vidare till betalsätt</Button>
+          {/* <Button variant="contained" onClick={ () => getDeliveryPrice(delivery) }>Gå vidare till betalsätt</Button> */}
         </div>
     )
 }
 
-export default Delivery;
+export default DeliveryInfo;

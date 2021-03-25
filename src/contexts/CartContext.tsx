@@ -17,6 +17,11 @@ export interface Customer {
   postalCode?: string;
 }
 
+export interface Delivery {
+  deliveryType?: string,
+  deliveryPrice?: string
+}
+
 export interface CartItem extends Product {
   quantity: number;
 }
@@ -24,7 +29,7 @@ interface State {
   cart: CartItem[];
   customer: Customer;
   orderPrice: number;
-  deliveryPrice: number;
+  delivery: Delivery;
 }
 
 interface ContextValue extends State {
@@ -33,7 +38,7 @@ interface ContextValue extends State {
   emptyCart: () => void;
   createCustomer: (customer: Customer) => void;
   getOrderPrice: (cart: CartItem[]) => void;
-  getDeliveryPrice: (deliveryPrice: number) => void;
+  getDelivery: (delivery: Delivery) => void;
 }
 
 export const CartContext = createContext<ContextValue>({
@@ -45,8 +50,8 @@ export const CartContext = createContext<ContextValue>({
   createCustomer: () => {},
   orderPrice: 0,
   getOrderPrice: () => {},
-  deliveryPrice: 0,
-  getDeliveryPrice: () => {}
+  delivery: {},
+  getDelivery: () => {}
 });
 
 class CartProvider extends Component<{}, State> {
@@ -54,7 +59,7 @@ class CartProvider extends Component<{}, State> {
     cart: [],
     customer: {},
     orderPrice: 0,
-    deliveryPrice: 0
+    delivery: {}
   };
   
   getOrderPrice = (cart: CartItem[]) => {
@@ -73,10 +78,10 @@ class CartProvider extends Component<{}, State> {
 
   };
 
-  getDeliveryPrice = (deliveryPrice: number) => {
+  getDelivery = (delivery: Delivery) => {
 
-    this.setState({ deliveryPrice: deliveryPrice });
-    console.log(deliveryPrice)
+    this.setState({ delivery: delivery });
+    console.log(delivery)
 
   };
 
@@ -142,8 +147,8 @@ class CartProvider extends Component<{}, State> {
           createCustomer: this.createCustomer,
           getOrderPrice: this.getOrderPrice,
           orderPrice: this.state.orderPrice,
-          getDeliveryPrice: this.getDeliveryPrice,
-          deliveryPrice: this.state.deliveryPrice
+          getDelivery: this.getDelivery,
+          delivery: this.state.delivery
         }}
       >
         {this.props.children}

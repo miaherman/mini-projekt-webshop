@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { CartContext, Order, Customer, CartItem } from "../contexts/CartContext";
+import { CartContext, Order, Customer, Delivery, CartItem } from "../contexts/CartContext";
 import Button from "@material-ui/core/Button";
 
 import Cart from "./Cart";
-import Delivery from "./Delivery";
 import Payment from "./Payment";
 import CustomerInfo from "./CustomerInfo";
 
@@ -25,7 +24,7 @@ const useStyles = makeStyles((theme: any) => ({
 
 export default function Checkout() {
   const classes = useStyles();
-  const { customer, cart, orderPrice, deliveryPrice } = useContext(CartContext);
+  const { customer, cart, orderPrice, delivery } = useContext(CartContext);
 
   return (
     <div className={classes.root}>
@@ -37,7 +36,7 @@ export default function Checkout() {
         <Delivery />
         <Payment /> */}
 
-        <Button onClick={ () => completeBooking(customer, cart, orderPrice, deliveryPrice)} className={classes.textField} variant="contained">
+        <Button onClick={ () => completeBooking(customer, cart, orderPrice, delivery)} className={classes.textField} variant="contained">
           Bekräfta beställning
         </Button>
       </Container>
@@ -56,13 +55,13 @@ async function timeOut() {
     return new Promise((resolve) => { setTimeout(resolve , 2000) })
 }
 
-async function completeBooking(customer: Customer, cart: CartItem[], orderPrice: number, deliveryPrice: number) {
+async function completeBooking(customer: Customer, cart: CartItem[], orderPrice: number, delivery: Delivery) {
 
     const order: Order = {
         id: getRandomInt(10000, 99999),
         customer: customer,
         cart: cart,
-        totalPrice: orderPrice + deliveryPrice
+        totalPrice: orderPrice
     }
 
     // empty cart & other info...
