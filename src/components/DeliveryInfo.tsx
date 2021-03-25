@@ -1,31 +1,20 @@
 import React, { ChangeEvent, useContext } from 'react';
 import {
-  Button,
     FormControl,
     FormControlLabel,
-    FormLabel,
-    makeStyles,
     Radio,
     RadioGroup,
   } from "@material-ui/core";
 import { CartContext } from "../contexts/CartContext";
-
-  const useStyles = makeStyles((theme: any) => ({
-    textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      width: "100%",
-    },
-  }));
 
 function DeliveryInfo() {
     const { delivery, getDelivery } = useContext(CartContext);
 
     const handleDelivery = (e: ChangeEvent<HTMLInputElement>) => {
 
-      if (e.target.value === 'express') {
+      if (e.target.value === 'Express') {
         getDelivery({ ...delivery, deliveryPrice: 100, deliveryType: e.target.value })
-      } else if (e.target.value === 'instabox') {
+      } else if (e.target.value === 'Instabox') {
         getDelivery({ ...delivery, deliveryPrice: 50, deliveryType: e.target.value })
       } else {
         getDelivery({ ...delivery, deliveryPrice: 0, deliveryType: e.target.value })
@@ -50,24 +39,24 @@ function DeliveryInfo() {
         <div>
           <FormControl component="fieldset">
             <RadioGroup
-              aria-label="express"
-              name="express"
-              //value={delivery.deliveryType}
+              aria-label="delivery"
+              name="delivery"
+              value={delivery.deliveryType}
               onChange={handleDelivery}
               row
             >
               <FormControlLabel
-                value="express"
+                value="Express"
                 control={<Radio />}
                 label={"Express (24h, levereras den, " + formatted_express + ") + 100kr"}
               />
               <FormControlLabel
-                value="instabox"
+                value="Instabox"
                 control={<Radio />}
                 label={"Instabox (48h, levereras den, " + formatted_instaBox + ") + 50kr"}
               />
               <FormControlLabel
-                value="postnord"
+                value="Postnord"
                 control={<Radio />}
                 label={"Postnord (ca 1 vecka, levereras, " + formatted_postnord  + ") Fri frakt"}
               />

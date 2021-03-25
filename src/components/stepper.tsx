@@ -1,23 +1,21 @@
-import React, { useContext } from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import StepContent from '@material-ui/core/StepContent';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import React from "react";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
+import StepContent from "@material-ui/core/StepContent";
+import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 import CustomerInfo from "./CustomerInfo";
-import DeliveryInfo from './DeliveryInfo';
-import PaymentInfo from './PaymentInfo';
-import { CartContext } from '../contexts/CartContext';
-import Orderconfirmation from './Orderconfirmation';
-
+import DeliveryInfo from "./DeliveryInfo";
+import PaymentInfo from "./PaymentInfo";
+import Orderconfirmation from "./Orderconfirmation";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: '100%',
+      width: "100%",
     },
     button: {
       marginTop: theme.spacing(1),
@@ -29,35 +27,36 @@ const useStyles = makeStyles((theme: Theme) =>
     resetContainer: {
       padding: theme.spacing(3),
     },
-  }),
+  })
 );
 
 function getSteps() {
-  return ['Fyll i dina personuppgifter', 'Välj typ av leverans', 'Välj betalningssätt'];
+  return [
+    "Fyll i dina personuppgifter",
+    "Välj typ av leverans",
+    "Välj betalningssätt",
+  ];
 }
-
-
 
 export default function VerticalLinearStepper() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [hasErrorInForm, setHasErrorInForm] = React.useState(false);
   const steps = getSteps();
-  const { cart, customer, createCustomer } = useContext(CartContext);
 
   function getStepContent(step: number) {
     switch (step) {
       case 0:
-        return <CustomerInfo onErrorChange={setHasErrorInForm} />
+        return <CustomerInfo onErrorChange={setHasErrorInForm} />;
       case 1:
-        return <DeliveryInfo />
+        return <DeliveryInfo />;
       case 2:
-        return <PaymentInfo />
+        return <PaymentInfo />;
       default:
-        return 'Unknown step';
+        return "Unknown step";
     }
   }
- 
+
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -104,8 +103,15 @@ export default function VerticalLinearStepper() {
       </Stepper>
       {activeStep === steps.length && (
         <Paper square elevation={0} className={classes.resetContainer}>
-          <Typography><Orderconfirmation></Orderconfirmation></Typography>
-          <Button onClick={handleReset} className={classes.button}>
+          <Typography>
+            <Orderconfirmation></Orderconfirmation>
+          </Typography>
+          <Button
+            variant="contained"
+            onClick={handleReset}
+            className={classes.button}
+            color="primary"
+          >
             Ändra dina uppgifter
           </Button>
         </Paper>

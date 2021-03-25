@@ -1,8 +1,8 @@
 import React, { ChangeEvent, useContext, useEffect } from 'react';
 import TextField from "@material-ui/core/TextField";
-import { Button, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import { useState } from "react";
-import { CartContext, Customer } from '../contexts/CartContext';
+import { CartContext } from '../contexts/CartContext';
 
 const useStyles = makeStyles((theme: any) => ({
     root: {
@@ -98,12 +98,6 @@ function CustomerInfo({ onErrorChange }: Props) {
         setMobileNumberError("");
       }
     }
-    // console.log(firstName)
-    // console.log(lastName)
-    // console.log(address)
-    // console.log(postalCode)
-    // console.log(city)
-    // console.log(mobileNumber)
     
     return(
         <div className={classes.infoContainer}>

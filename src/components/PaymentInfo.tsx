@@ -4,7 +4,6 @@ import TextField from "@material-ui/core/TextField";
 import {
   FormControl,
   FormControlLabel,
-  FormLabel,
   Radio,
   RadioGroup,
 } from "@material-ui/core";
@@ -12,43 +11,41 @@ import { CartContext } from "../contexts/CartContext";
 
 function PaymentInfo() {
   const { customer, getPayment, payment } = useContext(CartContext);
-  const [swishNumber, setSwishNumber] = React.useState(customer.mobileNumber)
+  const [swishNumber, setSwishNumber] = React.useState(customer.mobileNumber);
 
   const handlePayment = (e: ChangeEvent<HTMLInputElement>) => {
-      getPayment({...payment, paymentType: e.target.value })
-    
+    getPayment({ ...payment, paymentType: e.target.value });
   };
 
   useEffect(() => {
     setSwishNumber(customer.mobileNumber);
-  }, [customer.mobileNumber])
+  }, [customer.mobileNumber]);
 
   return (
     <div>
       <FormControl component="fieldset">
         <RadioGroup
-          aria-label="swish"
-          name="swish"
+          aria-label="payment"
+          name="payment"
           value={payment.paymentType}
           onChange={handlePayment}
           row
         >
-          <FormControlLabel value="swish" control={<Radio />} label="Swish" />
+          <FormControlLabel value="Swish" control={<Radio />} label="Swish" />
           <FormControlLabel
-            value="card"
+            value="Betalkort"
             control={<Radio />}
             label="Betalkort"
-            
           />
           <FormControlLabel
-            value="invoice"
+            value="Faktura"
             control={<Radio />}
             label="Faktura"
           />
         </RadioGroup>
       </FormControl>
       <div>
-        {payment.paymentType === "swish" ? (
+        {payment.paymentType === "Swish" ? (
           <TextField
             key="mobilenumber"
             id="mobilenumber"
@@ -66,7 +63,7 @@ function PaymentInfo() {
             }}
             variant="outlined"
           />
-        ) : payment.paymentType === "card" ? (
+        ) : payment.paymentType === "Betalkort" ? (
           <form autoComplete="on">
             <TextField
               id="frmCCNum"
@@ -112,7 +109,7 @@ function PaymentInfo() {
               variant="outlined"
             />
           </form>
-        ) : payment.paymentType === "invoice" ? (
+        ) : payment.paymentType === "Faktura" ? (
           <TextField
             key="personnumber"
             type="number"

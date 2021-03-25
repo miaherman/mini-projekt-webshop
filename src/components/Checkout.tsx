@@ -5,19 +5,18 @@ import { CartContext, Order, Customer, Delivery, CartItem } from "../contexts/Ca
 import Button from "@material-ui/core/Button";
 
 import Cart from "./Cart";
-import PaymentInfo from "./PaymentInfo";
-import CustomerInfo from "./CustomerInfo";
 
 import VerticalLinearStepper from "./stepper";
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
+    display: 'flex',
     justifyContent: "center",
     flexWrap: "wrap",
   },
-  textField: {
-    marginRight: theme.spacing(1),
-    width: "100%"
+  button: {
+    margin: theme.spacing(1),
+    width: "97%"
   },
 }));
 
@@ -30,12 +29,7 @@ export default function Checkout() {
         <Cart />
         <Container maxWidth="sm">
           <VerticalLinearStepper />
-
-        {/* <CustomerInfo />
-        <Delivery />
-        <Payment /> */}
-
-        <Button onClick={ () => completeBooking(customer, cart, orderPrice, delivery)} className={classes.textField} variant="contained">
+        <Button onClick={ () => completeBooking(customer, cart, orderPrice, delivery)} className={classes.button} variant="contained">
           Bekräfta beställning
         </Button>
       </Container>

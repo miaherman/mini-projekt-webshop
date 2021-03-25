@@ -1,26 +1,48 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { CartContext } from "../contexts/CartContext";
 
 const Orderconfirmation = () => {
-  const { cart, orderPrice, delivery, customer } = useContext(CartContext);
+  const { cart, orderPrice, delivery, customer, payment } = useContext(
+    CartContext
+  );
 
   return (
     <div>
       <h1>Kontrollera din beställning </h1>
-      {customer.firstName}&nbsp;
-      {customer.lastName}&nbsp;
-      {delivery.deliveryType}&nbsp;
-      {delivery.deliveryPrice} kr
+
+      <div>
+        <h3>Kunduppgifter:</h3>
+        <p>
+          {customer.firstName}&nbsp;{customer.lastName}
+        </p>
+        <p>{customer.address}</p>
+        <p>{customer.postalCode}</p>
+        <p>{customer.city}</p>
+        <p>{customer.mobileNumber}</p>
+      </div>
+
+      <div>
+        <h3>Leveransuppgifter:</h3>
+        <p>{delivery.deliveryType}</p>
+        <p>Pris: {delivery.deliveryPrice} kr</p>
+      </div>
+
+      <div>
+        <h3>Betalningsuppgifter:</h3>
+        <p>{payment.paymentType}</p>
+      </div>
+
+      <h3>Produkter:</h3>
       {cart.map((product) => (
         <div>
-          <span>{product.title}&nbsp;</span>
-          {/* <span>{product.price}</span> */}
-          <span>{product.quantity}&nbsp;st</span>
+          <p>
+            {product.title} {product.quantity}&nbsp;st
+          </p>
         </div>
-        
       ))}
-      <span>TOTALT: {orderPrice + delivery.deliveryPrice}&nbsp;kr</span>
-      
+      <p>
+        Totalt pris (inkl. frakt): {orderPrice + delivery.deliveryPrice}&nbsp;kr
+      </p>
     </div>
   );
 };
