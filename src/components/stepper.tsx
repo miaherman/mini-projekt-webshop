@@ -11,6 +11,8 @@ import CustomerInfo from "./CustomerInfo";
 import DeliveryInfo from './DeliveryInfo';
 import Payment from './Payment';
 import { CartContext } from '../contexts/CartContext';
+import Orderconfirmation from './Orderconfirmation';
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,7 +43,7 @@ export default function VerticalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   // const [hasErrorInForm, setHasErrorInForm] = React.useState(false);
   const steps = getSteps();
-  const { customer, createCustomer } = useContext(CartContext);
+  const { cart, customer, createCustomer } = useContext(CartContext);
 
   function getStepContent(step: number) {
     switch (step) {
@@ -116,7 +118,7 @@ export default function VerticalLinearStepper() {
       </Stepper>
       {activeStep === steps.length && (
         <Paper square elevation={0} className={classes.resetContainer}>
-          <Typography>Tack för din order! Ditt ordernummer är: </Typography>
+          <Typography><Orderconfirmation></Orderconfirmation></Typography>
           <Button onClick={handleReset} className={classes.button}>
             Reset
           </Button>

@@ -5,7 +5,8 @@ export interface Order {
   id: number;
   customer: Customer;
   cart: CartItem[];
-  totalPrice: number;
+  deliveryType?: string;
+  totalPrice?: number;
 }
 
 export interface Customer {
@@ -18,8 +19,8 @@ export interface Customer {
 }
 
 export interface Delivery {
-  deliveryType?: string,
-  deliveryPrice?: string
+  deliveryType: string;
+  deliveryPrice: number;
 }
 
 export interface CartItem extends Product {
@@ -50,7 +51,10 @@ export const CartContext = createContext<ContextValue>({
   createCustomer: () => {},
   orderPrice: 0,
   getOrderPrice: () => {},
-  delivery: {},
+  delivery: {
+    deliveryType: "",
+    deliveryPrice: 0,
+  },
   getDelivery: () => {}
 });
 
@@ -59,7 +63,10 @@ class CartProvider extends Component<{}, State> {
     cart: [],
     customer: {},
     orderPrice: 0,
-    delivery: {}
+    delivery: {
+      deliveryType: "",
+      deliveryPrice: 0,
+    }
   };
   
   getOrderPrice = (cart: CartItem[]) => {

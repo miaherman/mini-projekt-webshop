@@ -20,22 +20,16 @@ import { CartContext } from "../contexts/CartContext";
 
 function DeliveryInfo() {
     const { delivery, getDelivery } = useContext(CartContext);
-    
-    const [deliveryValue, setDeliveryValue] = React.useState("express");
-
-    let delivery2: number;
-
-    if (deliveryValue === 'express') {
-      delivery2 = 100;
-    } else if (deliveryValue === 'instabox') {
-      delivery2 = 50;
-    } else if (deliveryValue === 'postnord') {
-      delivery2 = 0;
-    }
 
     const handleDelivery = (e: ChangeEvent<HTMLInputElement>) => {
-      //setDeliveryValue(event.target.value);
-      getDelivery({ ...delivery, deliveryPrice: e.target.value })
+
+      if (e.target.value === 'express') {
+        getDelivery({ ...delivery, deliveryPrice: 100, deliveryType: e.target.value })
+      } else if (e.target.value === 'instabox') {
+        getDelivery({ ...delivery, deliveryPrice: 50, deliveryType: e.target.value })
+      } else {
+        getDelivery({ ...delivery, deliveryPrice: 0, deliveryType: e.target.value })
+      }
     };
 
     let current_datetime = new Date()
@@ -51,8 +45,6 @@ function DeliveryInfo() {
     let postnord = new Date(current_datetime)
     postnord.setDate(express.getDate() + 7)
     let formatted_postnord = postnord.getDate() + "-" + (postnord.getMonth() + 1) + "-" + express.getFullYear();
-
- 
     
     return (
         <div>
@@ -60,7 +52,7 @@ function DeliveryInfo() {
             <RadioGroup
               aria-label="express"
               name="express"
-              value={deliveryValue}
+              //value={delivery.deliveryType}
               onChange={handleDelivery}
               row
             >
@@ -81,7 +73,6 @@ function DeliveryInfo() {
               />
             </RadioGroup>
           </FormControl>
-          {/* <Button variant="contained" onClick={ () => getDeliveryPrice(delivery) }>Gå vidare till betalsätt</Button> */}
         </div>
     )
 }

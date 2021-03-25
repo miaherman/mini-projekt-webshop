@@ -61,7 +61,8 @@ async function completeBooking(customer: Customer, cart: CartItem[], orderPrice:
         id: getRandomInt(10000, 99999),
         customer: customer,
         cart: cart,
-        totalPrice: orderPrice
+        deliveryType: delivery.deliveryType,
+        totalPrice: orderPrice + delivery.deliveryPrice
     }
 
     // empty cart & other info...
