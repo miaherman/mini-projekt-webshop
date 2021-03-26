@@ -10,6 +10,7 @@ import ButtonAppBar from "./components/buttonAppBar";
 import CartProvider from "./contexts/CartContext";
 import ProductView from "./components/productView";
 import Main from "./components/main";
+import Orderconfirmation from './components/Orderconfirmation'
 
 //import { products } from "./products";
 
@@ -31,6 +32,9 @@ function App() {
 
             <Route path="/checkout">
               <Checkout />
+            </Route>
+            <Route path="/orderconfirmation">
+              <Orderconfirmation />
             </Route>
           </Switch>
         </CartProvider>

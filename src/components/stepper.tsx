@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import CustomerInfo from "./CustomerInfo";
 import DeliveryInfo from "./DeliveryInfo";
 import PaymentInfo from "./PaymentInfo";
-import Orderconfirmation from "./Orderconfirmation";
+import Orderinfo from "./Orderinfo";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -104,7 +104,7 @@ export default function VerticalLinearStepper() {
       {activeStep === steps.length && (
         <Paper square elevation={0} className={classes.resetContainer}>
           <Typography>
-            <Orderconfirmation></Orderconfirmation>
+            <Orderinfo></Orderinfo>
           </Typography>
           <Button
             variant="contained"

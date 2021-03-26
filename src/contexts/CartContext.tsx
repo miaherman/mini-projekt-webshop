@@ -44,7 +44,7 @@ interface ContextValue extends State {
   emptyCart: () => void;
   createCustomer: (customer: Customer) => void;
   getOrderPrice: (cart: CartItem[]) => void;
-  getOrderId: (min: number, max: number) => void;
+  getOrderId: (randomOrderId: number) => void;
   getDelivery: (delivery: Delivery) => void;
   getPayment: (payment: Payment) => void;
 }
@@ -102,10 +102,9 @@ class CartProvider extends Component<{}, State> {
 
   };
 
-  getOrderId(min: number, max: number) {
+  getOrderId = (randomOrderId: number) => {
 
-    const randomOrderID = Math.floor(Math.random() * (max - min) + min)
-    this.setState({ orderId: randomOrderID })
+    this.setState({ orderId: randomOrderId })
    }
 
   getDelivery = (delivery: Delivery) => {
@@ -116,7 +115,6 @@ class CartProvider extends Component<{}, State> {
   };
 
   getPayment = (payment: Payment) => {
-
     this.setState({ payment: payment });
     console.log(payment)
 
@@ -125,6 +123,19 @@ class CartProvider extends Component<{}, State> {
   createCustomer = (customer: Customer) => {
     this.setState({ customer: customer })
     console.log(customer)
+  }
+
+  emptyCart = () => {
+      
+    this.setState( { cart: [], customer: {}, 
+      orderPrice: 0, 
+      orderId: 0, 
+      delivery: {
+        deliveryType: "", 
+        deliveryPrice: 0}, 
+        payment: {
+          paymentType: ""} 
+        } )
   }
 
   addProductToCart = (product: Product) => {
@@ -179,7 +190,7 @@ class CartProvider extends Component<{}, State> {
           cart: this.state.cart,
           addToCart: this.addProductToCart,
           removeFromCart: this.removeProductFromCart,
-          emptyCart: () => {}, // Todo...
+          emptyCart: this.emptyCart,
           customer: this.state.customer,
           createCustomer: this.createCustomer,
           getOrderPrice: this.getOrderPrice,
