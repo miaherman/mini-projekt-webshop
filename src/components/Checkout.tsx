@@ -2,8 +2,6 @@ import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useHistory } from "react-router-dom";
-import LoadingButton from '@material-ui/lab/LoadingButton'
-
 
 import {
   CartContext,
@@ -14,11 +12,10 @@ import {
   Payment
 } from "../contexts/CartContext";
 import Button from "@material-ui/core/Button";
-
 import Cart from "./Cart";
 
 import VerticalLinearStepper from "./stepper";
-import { Link } from "react-router-dom";
+import { LoadingButton } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
