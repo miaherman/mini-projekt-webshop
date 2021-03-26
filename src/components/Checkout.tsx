@@ -15,7 +15,7 @@ import Button from "@material-ui/core/Button";
 import Cart from "./Cart";
 
 import VerticalLinearStepper from "./stepper";
-import { LoadingButton } from '@material-ui/lab';
+// import LoadingButton from '@material-ui/lab/LoadingButton';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -32,7 +32,8 @@ const useStyles = makeStyles((theme: any) => ({
 export default function Checkout() {
   const classes = useStyles();
   const { emptyCart, createOrderId, customer, cart, orderPrice, orderId, delivery, payment } = useContext(CartContext);
-  const [pending, setPending] = React.useState(false);
+  
+  // const [pending, setPending] = React.useState(false);
   let history = useHistory();
 
   function navigateToNextPage() {
@@ -47,7 +48,7 @@ export default function Checkout() {
       deliveryType: delivery.deliveryType,
       totalPrice: orderPrice + delivery.deliveryPrice,
     };
-    setPending(true)
+    // setPending(true)
     
     const res = await mockApi(order);
     navigateToNextPage();
@@ -59,14 +60,14 @@ export default function Checkout() {
       <Container maxWidth="sm">
         <VerticalLinearStepper />
 
-        <LoadingButton
-          pending={pending}
+        <Button
           onClick={completeBooking}
           className={classes.button}
           variant="contained"
         >
           Bekräfta beställning
-        </LoadingButton>
+        </Button>
+
       </Container>
     </div>
   );
