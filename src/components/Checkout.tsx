@@ -1,6 +1,10 @@
 import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { useHistory } from "react-router-dom";
+import LoadingButton from '@material-ui/lab/LoadingButton'
+
+
 import {
   CartContext,
   Order,
@@ -30,32 +34,26 @@ const useStyles = makeStyles((theme: any) => ({
 
 export default function Checkout() {
   const classes = useStyles();
-  const { emptyCart, getOrderId, customer, cart, orderPrice, orderId, delivery, payment } = useContext(CartContext);
+  const { emptyCart, createOrderId, customer, cart, orderPrice, orderId, delivery, payment } = useContext(CartContext);
+  const [pending, setPending] = React.useState(false);
+  let history = useHistory();
 
-  async function completeBooking(
-    customer: Customer,
-    cart: CartItem[],
-    orderPrice: number,
-    delivery: Delivery,
-    payment: Payment,
-    orderId: number
-  ) {
+  function navigateToNextPage() {
+    history.push("/orderconfirmation");
+}
 
-    getOrderId(Math.floor(Math.random() * (99999 - 10000) + 10000));
-
+  const completeBooking = async () => {  
     const order: Order = {
-      id: orderId,
+      id: createOrderId(),
       customer: customer,
       cart: cart,
       deliveryType: delivery.deliveryType,
       totalPrice: orderPrice + delivery.deliveryPrice,
     };
-  
-    // emptyCart();
-  
+    setPending(true)
+    
     const res = await mockApi(order);
-    // --->
-    console.log(res);
+    navigateToNextPage();
   }
 
   return (
@@ -64,17 +62,14 @@ export default function Checkout() {
       <Container maxWidth="sm">
         <VerticalLinearStepper />
 
-        <Link to="/orderconfirmation">
-          <Button
-            onClick={() =>
-              completeBooking(customer, cart, orderPrice, delivery, payment, orderId)
-            }
-            className={classes.button}
-            variant="contained"
-          >
-            Bekräfta beställning
-          </Button>
-        </Link>
+        <LoadingButton
+          pending={pending}
+          onClick={completeBooking}
+          className={classes.button}
+          variant="contained"
+        >
+          Bekräfta beställning
+        </LoadingButton>
       </Container>
     </div>
   );
@@ -95,5 +90,3 @@ async function timeOut() {
 function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min) + min);
 }
-
-

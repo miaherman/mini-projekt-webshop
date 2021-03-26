@@ -1,9 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../contexts/CartContext';
 
 const Orderconfirmation = () => {
 
-  const { orderId } = useContext(CartContext);
+  const { orderId: orderIfFromCart, emptyCart } = useContext(CartContext);
+  const [orderId, setOrderId] = useState(orderIfFromCart);
+
+  useEffect(() => {
+    if (orderId) {
+      emptyCart()
+    }
+  }, [orderId])
 
   return (
     <div>

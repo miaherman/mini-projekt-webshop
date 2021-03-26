@@ -44,7 +44,7 @@ interface ContextValue extends State {
   emptyCart: () => void;
   createCustomer: (customer: Customer) => void;
   getOrderPrice: (cart: CartItem[]) => void;
-  getOrderId: (randomOrderId: number) => void;
+  createOrderId: () => number;
   getDelivery: (delivery: Delivery) => void;
   getPayment: (payment: Payment) => void;
 }
@@ -59,7 +59,7 @@ export const CartContext = createContext<ContextValue>({
   orderPrice: 0,
   getOrderPrice: () => {},
   orderId: 0,
-  getOrderId: () => {},
+  createOrderId: () => 0,
   delivery: {
     deliveryType: "",
     deliveryPrice: 0,
@@ -102,26 +102,30 @@ class CartProvider extends Component<{}, State> {
 
   };
 
-  getOrderId = (randomOrderId: number) => {
-
-    this.setState({ orderId: randomOrderId })
-   }
+  createOrderId = () => {
+    const min = 11111;
+    const max = 99999;
+    const orderId = Math.floor(Math.random() * (max - min) + min)
+    this.setState({ orderId })
+    // return for convinience
+    return orderId
+  }
 
   getDelivery = (delivery: Delivery) => {
 
-    this.setState({ delivery: delivery });
+    this.setState({ delivery });
     console.log(delivery)
 
   };
 
   getPayment = (payment: Payment) => {
-    this.setState({ payment: payment });
+    this.setState({ payment });
     console.log(payment)
 
   };
 
   createCustomer = (customer: Customer) => {
-    this.setState({ customer: customer })
+    this.setState({ customer })
     console.log(customer)
   }
 
@@ -187,20 +191,15 @@ class CartProvider extends Component<{}, State> {
     return (
       <CartContext.Provider
         value={{
-          cart: this.state.cart,
+          ...this.state,
+          emptyCart: this.emptyCart,
           addToCart: this.addProductToCart,
           removeFromCart: this.removeProductFromCart,
-          emptyCart: this.emptyCart,
-          customer: this.state.customer,
           createCustomer: this.createCustomer,
           getOrderPrice: this.getOrderPrice,
-          orderPrice: this.state.orderPrice,
-          getOrderId: this.getOrderId,
-          orderId: this.state.orderId,
+          createOrderId: this.createOrderId,
           getDelivery: this.getDelivery,
-          delivery: this.state.delivery,
           getPayment: this.getPayment,
-          payment: this.state.payment
         }}
       >
         {this.props.children}

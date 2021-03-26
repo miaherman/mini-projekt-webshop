@@ -33,9 +33,7 @@ function App() {
             <Route path="/checkout">
               <Checkout />
             </Route>
-            <Route path="/orderconfirmation">
               <Orderconfirmation />
-            </Route>
           </Switch>
         </CartProvider>
       </ThemeProvider>
