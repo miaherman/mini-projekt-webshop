@@ -69,4 +69,24 @@ export const products: Array<Product> = [
       size: '50x70 cm',
       price: 500,
     },
+    {
+    id: 7,
+      path: 'graphic-figure',
+      image:
+        "https://desenio.se/bilder/artiklar/zoom/14182_2.jpg?imgwidth=435&qt=R%C3%B6tt%20ansikte",
+      title: "Graphic figure",
+      description: "Grafisk illustration av ett abstrakt ansikte och hand i rött och beige och texten Graphic figures längst ner. ",
+      size: '50x70 cm',
+      price: 500,
+    },
+    {
+    id: 8,
+      path: 'a-cup-of-tea',
+      image:
+        "https://cdn.shopify.com/s/files/1/0118/7443/5129/products/B54-031_1024x1024.jpg?v=1595307521",
+      title: "A Cup of Tea",
+      description: "Inspirerande poster med Rajneesh Bhagwan",
+      size: '50x70 cm',
+      price: 500,
+    },
 ];
