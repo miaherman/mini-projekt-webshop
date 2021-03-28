@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2),
     display: "flex",
     flexDirection: "column",
+    maxWidth: '30rem'
   },
   title: {
     flexGrow: 1,
