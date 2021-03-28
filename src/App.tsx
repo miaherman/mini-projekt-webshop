@@ -31,8 +31,9 @@ function App() {
         <CartProvider>
           <CssBaseline />
           <ButtonAppBar />
+          <AnimatePresence exitBeforeEnter>
+
           <Switch location={location} key={location.key}>
-            <AnimatePresence exitBeforeEnter>
               <Route exact path="/">
                 <PageAnimation>
                   <Main />
@@ -56,8 +57,9 @@ function App() {
                   <Orderconfirmation />
                 </PageAnimation>
               </Route>
-            </AnimatePresence>
           </Switch>
+          </AnimatePresence>
+
           {/* <Footer /> */}
         </CartProvider>
       </ThemeProvider>
