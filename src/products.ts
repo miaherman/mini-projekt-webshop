@@ -37,7 +37,7 @@ export const products: Array<Product> = [
       title: "The Obsession",
       description: "Svarta cirklar - illustration av svarta, små cirklar mot en beige bakgrund.",
       size: '50x70 cm',
-      price: 500,
+      price: 350,
     },
     {
       id: 4,
@@ -47,7 +47,7 @@ export const products: Array<Product> = [
       title: "Svarta Linjer",
       description: "Lite svarta linjer",
       size: '50x70 cm',
-      price: 500,
+      price: 450,
     },
     {
       id: 5,
@@ -67,7 +67,7 @@ export const products: Array<Product> = [
       title: "Lavender Abstract",
       description: "Abstrakt illustration med en orange form med svarta och vita konturer mot en lila bakgrund med svarta detaljer.",
       size: '50x70 cm',
-      price: 500,
+      price: 350,
     },
     {
     id: 7,
@@ -77,7 +77,7 @@ export const products: Array<Product> = [
       title: "Graphic figure",
       description: "Grafisk illustration av ett abstrakt ansikte och hand i rött och beige och texten Graphic figures längst ner. ",
       size: '50x70 cm',
-      price: 500,
+      price: 450,
     },
     {
     id: 8,
@@ -87,6 +87,6 @@ export const products: Array<Product> = [
       title: "A Cup of Tea",
       description: "Inspirerande poster med Rajneesh Bhagwan",
       size: '50x70 cm',
-      price: 500,
+      price: 2000,
     },
 ];
