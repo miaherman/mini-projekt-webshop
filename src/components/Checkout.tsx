@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useHistory } from "react-router-dom";
@@ -6,10 +6,6 @@ import { useHistory } from "react-router-dom";
 import {
   CartContext,
   Order,
-  Customer,
-  Delivery,
-  CartItem,
-  Payment
 } from "../contexts/CartContext";
 import Button from "@material-ui/core/Button";
 import Cart from "./Cart";
@@ -19,6 +15,8 @@ import VerticalLinearStepper from "./stepper";
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
+    marginTop: theme.spacing(15),
+    marginBottom: theme.spacing(3),
     display: "flex",
     justifyContent: "center",
     flexWrap: "wrap",
@@ -31,8 +29,12 @@ const useStyles = makeStyles((theme: any) => ({
 
 export default function Checkout() {
   const classes = useStyles();
-  const { emptyCart, createOrderId, customer, cart, orderPrice, orderId, delivery, payment } = useContext(CartContext);
+  const { createOrderId, customer, cart, orderPrice, delivery } = useContext(CartContext);
   
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   // const [pending, setPending] = React.useState(false);
   let history = useHistory();
 
@@ -63,6 +65,7 @@ export default function Checkout() {
         <Button
           onClick={completeBooking}
           className={classes.button}
+          color="primary"
           variant="contained"
         >
           Bekräfta beställning
@@ -85,6 +88,6 @@ async function timeOut() {
   });
 }
 
-function getRandomInt(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min) + min);
-}
+// function getRandomInt(min: number, max: number) {
+//   return Math.floor(Math.random() * (max - min) + min);
+// }

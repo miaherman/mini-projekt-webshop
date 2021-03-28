@@ -1,43 +1,67 @@
 import React from "react";
-import { ThemeProvider } from "@material-ui/core/styles";
+import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "./theme";
 
-import { BrowserRouter as Router } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Route, Switch } from "react-router-dom";
 import Checkout from "./components/Checkout";
 import ButtonAppBar from "./components/buttonAppBar";
 import CartProvider from "./contexts/CartContext";
 import ProductView from "./components/productView";
 import Main from "./components/main";
-import Orderconfirmation from './components/Orderconfirmation'
+import Orderconfirmation from "./components/Orderconfirmation";
+import PageAnimation from "./wrapper/PageAnimation";
+import { AnimatePresence } from "framer-motion";
+import Footer from "./components/Footer";
 
-//import { products } from "./products";
+const useStyles = makeStyles((theme) => ({
+  App: {
+    minHeight: '100vh'
+  },
+}));
 
 function App() {
+  const location = useLocation();
+  const classes = useStyles();
+
   return (
-    <Router>
+    <div className={classes.App}>
       <ThemeProvider theme={theme}>
         <CartProvider>
           <CssBaseline />
           <ButtonAppBar />
-          <Switch>
-            <Route exact path="/">
-              <Main />
-            </Route>
+          <Switch location={location} key={location.key}>
+            <AnimatePresence exitBeforeEnter>
+              <Route exact path="/">
+                <PageAnimation>
+                  <Main />
+                </PageAnimation>
+              </Route>
 
-            <Route path="/products/:path">
-              <ProductView />
-            </Route>
+              <Route path="/products/:path">
+                <PageAnimation>
+                  <ProductView />
+                </PageAnimation>
+              </Route>
 
-            <Route path="/checkout">
-              <Checkout />
-            </Route>
-              <Orderconfirmation />
+              <Route path="/checkout">
+                <PageAnimation>
+                  <Checkout />
+                </PageAnimation>
+              </Route>
+
+              <Route path="/orderconfirmation">
+                <PageAnimation>
+                  <Orderconfirmation />
+                </PageAnimation>
+              </Route>
+            </AnimatePresence>
           </Switch>
+          {/* <Footer /> */}
         </CartProvider>
       </ThemeProvider>
-    </Router>
+    </div>
   );
 }
 

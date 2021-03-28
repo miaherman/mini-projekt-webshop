@@ -27,7 +27,7 @@ export default function ButtonAppBar() {
   const { cart } = useContext(CartContext);
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <Link style={{ color: "inherit" }} to="/">
             <IconButton
@@ -40,7 +40,7 @@ export default function ButtonAppBar() {
             </IconButton>
           </Link>
           <Typography variant="h6" className={classes.title}>
-            Printyprint
+            PrintyPrint
           </Typography>
           <Link style={{ color: "inherit" }} to='/checkout' onClick={() => {
                 console.info("clickme");

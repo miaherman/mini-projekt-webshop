@@ -13,7 +13,7 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
-    margin: "1rem",
+    margin: theme.spacing(1),
     width: 180,
   },
   media: {
@@ -98,8 +98,8 @@ function Cart() {
       )}
 
       <div style={{textAlign: 'center'}}>
-        <h3>Totalt pris(ex frakt):</h3>
-        <div>{orderPrice} kr</div>
+        <h2>Totalt pris(ex frakt):</h2>
+        <h3>{orderPrice} kr</h3>
       </div>
     </div>
   );

@@ -19,6 +19,7 @@ const Orderinfo = () => {
         <p>{customer.postalCode}</p>
         <p>{customer.city}</p>
         <p>{customer.mobileNumber}</p>
+        <p>{customer.email}</p>
       </div>
 
       <div>

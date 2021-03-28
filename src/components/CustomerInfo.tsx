@@ -34,6 +34,8 @@ function CustomerInfo({ onErrorChange }: Props) {
     const [postalCodeError, setPostalCodeError] = useState("");
     const [cityError, setCityError] = useState("");
     const [mobileNumberError, setMobileNumberError] = useState("");
+    const [emailError, setEmailError] = useState("");
+
     
     useEffect(() => {
       onErrorChange(Boolean(firstNameError || lastNameError || addressError || postalCodeError || cityError || mobileNumberError))
@@ -96,6 +98,16 @@ function CustomerInfo({ onErrorChange }: Props) {
         setMobileNumberError("Var god ange endast siffror");
       } else {
         setMobileNumberError("");
+      }
+    }
+
+    const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+      createCustomer({ ...customer, email: e.target.value })
+      
+      if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(e.target.value)) {
+        setEmailError("Var god ange en korrekt e-postadress");
+      } else {
+        setEmailError("");
       }
     }
     
@@ -184,6 +196,23 @@ function CustomerInfo({ onErrorChange }: Props) {
               variant="outlined"
               helperText={cityError}
               error={Boolean(cityError)}
+            />
+            <TextField
+                value={customer.email}
+                onChange={handleEmailChange}
+                id="email"
+                label="E-post"
+                required
+                style={{ margin: 8 }}
+                placeholder="E-postadress"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{
+                shrink: true,
+                }}
+                variant="outlined"
+                helperText={emailError}
+                error={Boolean(emailError)}
             />
             <TextField
                 value={customer.mobileNumber}

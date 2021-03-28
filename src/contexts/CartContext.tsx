@@ -16,6 +16,7 @@ export interface Customer {
   lastName?: string;
   mobileNumber?: string;
   postalCode?: string;
+  email?: string;
 }
 
 export interface Payment {
