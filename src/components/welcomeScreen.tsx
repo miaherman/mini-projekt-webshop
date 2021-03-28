@@ -16,25 +16,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     marginLeft: '1rem',
     marginRight: '1rem',
-    fontSize: '6rem',
-    '@media (max-width: 1200px)' : {
-      fontSize: '4rem'
-    },
-    '@media (max-width: 750px)' : {
-      fontSize: '3rem'
-    }
   },
   text: {
     textAlign: 'center',
     marginLeft: '1rem',
     marginRight: '1rem',
-    fontSize: '1.7rem',
-    '@media (max-width: 1200px)' : {
-      fontSize: '1.2rem'
-    },
-    '@media (max-width: 750px)' : {
-      fontSize: '1rem'
-    }
   }
 }));
 
