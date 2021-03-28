@@ -1,9 +1,26 @@
-import React from "react";
+import { makeStyles } from "@material-ui/core";
+import { useEffect } from "react";
 import ProductGrid from "./productGrid";
+import WelcomeScreen from './welcomeScreen'
+
+const useStyles = makeStyles((theme) => ({
+  main: {
+    margin: 0
+  },
+  title: {},
+}));
 
 function Main() {
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  const classes = useStyles();
+
   return (
-    <main>
+    <main className={classes.main}>
+      <WelcomeScreen />
       <ProductGrid />
     </main>
   );

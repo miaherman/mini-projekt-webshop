@@ -15,14 +15,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import { CartContext } from "../contexts/CartContext";
 import { products } from "../products";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const useStyles = makeStyles((theme) => ({
+  gridContainer: {
+    margin: 0,
+  },
   root: {
     margin: theme.spacing(3),
-    width: 300,
+    width: 270,
   },
   media: {
-    height: 450,
+    height: 420,
   },
   title: {
     color: theme.palette.primary.main,
@@ -45,60 +49,57 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ProductGrid() {
-
   const classes = useStyles();
   const { addToCart } = useContext(CartContext);
 
   return (
-    <Grid container justify="center">
+    <Grid container justify="center" className={classes.gridContainer}>
       {products.map((product) => (
-        <Grid item key={product.id}>
-          <Card className={classes.root}>
-            <Link style={{textDecoration: 'none'}} to={`/products/${product.path}`}>
-              <CardActionArea>
-                <CardMedia
-                  className={classes.media}
-                  image={product.image}
-                  title={product.title}
-                />
-                <CardContent>
-                  <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="h2"
-                    className={classes.title}
-                  >
-                    {product.title}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                    {product.description}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                    {product.price + " kr"}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Link>
-            <CardActions>
-              <Button
-                onClick={() => addToCart(product)}
-                size="small"
-                color="primary"
-                href=""
+        <motion.div whileHover={{ scale: 1.05 }}>
+          <Grid item key={product.id}>
+            <Card className={classes.root}>
+              <Link
+                style={{ textDecoration: "none" }}
+                to={`/products/${product.path}`}
               >
-                Lägg till
-              </Button>
-            </CardActions>
-          </Card>
-        </Grid>
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image={product.image}
+                    title={product.title}
+                  />
+                  <CardContent>
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="h2"
+                      className={classes.title}
+                    >
+                      {product.title}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      {product.price + " kr"}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Link>
+              <CardActions>
+                <Button
+                  onClick={() => addToCart(product)}
+                  size="small"
+                  color="primary"
+                  href=""
+                >
+                  Lägg till
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+        </motion.div>
       ))}
     </Grid>
   );

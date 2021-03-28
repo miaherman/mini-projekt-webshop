@@ -4,6 +4,7 @@ export interface Product {
     image: string;
     title: string;
     description: string;
+    size: string;
     price: number;
 }
 
@@ -15,6 +16,7 @@ export const products: Array<Product> = [
         "https://desenio.se/bilder/artiklar/zoom/13580_2.jpg?imgwidth=435&qt=Freddie%20Mercury%20i%20svartvitt",
       title: "Freddie Mercury",
       description: "En bild på Freddie",
+      size: '50x70 cm',
       price: 300,
     },
     {
@@ -24,6 +26,7 @@ export const products: Array<Product> = [
         "https://desenio.se/bilder/artiklar/zoom/12126_2.jpg?imgwidth=435&qt=Line%20art-ansikten",
       title: "Ansikten",
       description: "Två ansikten",
+      size: '50x70 cm',
       price: 400,
     },
     {
@@ -33,6 +36,7 @@ export const products: Array<Product> = [
         "https://desenio.se/bilder/artiklar/zoom/14196_2.jpg?imgwidth=435&qt=Grafisk%20trana",
       title: "Trana",
       description: "En trana som flyger",
+      size: '50x70 cm',
       price: 500,
     },
     {
@@ -42,6 +46,7 @@ export const products: Array<Product> = [
         "https://desenio.se/bilder/artiklar/zoom/13293_2.jpg?imgwidth=435&qt=Valv%20av%20svarta%20linjer",
       title: "Svarta Linjer",
       description: "Lite svarta linjer",
+      size: '50x70 cm',
       price: 500,
     },
     {
@@ -51,6 +56,7 @@ export const products: Array<Product> = [
         "https://desenio.se/bilder/artiklar/zoom/15070_2.jpg?imgwidth=435&qt=Pastellstrand",
       title: "Strand",
       description: "En strand och en himmel",
+      size: '50x70 cm',
       price: 500,
     },
     {
@@ -60,6 +66,7 @@ export const products: Array<Product> = [
         "https://desenio.se/bilder/artiklar/zoom/11490_2.jpg?imgwidth=435&qt=Retrokamera",
       title: "Kamera",
       description: "En person håller i en kamera",
+      size: '50x70 cm',
       price: 500,
     },
 ];

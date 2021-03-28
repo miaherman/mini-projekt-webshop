@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core';
-import { findByLabelText } from '@testing-library/dom';
 import React, { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../contexts/CartContext';
 
@@ -10,7 +9,9 @@ const useStyles = makeStyles((theme: any) => ({
     justifyContent: "center",
     alignItems: 'center',
     flexWrap: "wrap",
-    marginTop: '10rem'
+    marginTop: theme.spacing(15),
+    textAlign: 'center',
+    padding: '1rem'
   },
 }));
 
@@ -26,10 +27,15 @@ const Orderconfirmation = () => {
     }
   }, [orderId])
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <div className={classes.root}>
-      <h2>Här är ditt ordernummer: {orderId} </h2>
-      <p>En orderbekräftelse har skickats till din e-post med alla dina uppgifter.</p>
+      <h2>Tack för din beställning!</h2>
+      <h3>Ordernummer: {orderId} </h3>
+      <p>En orderbekräftelse har skickats till din e-post med alla uppgifter.</p>
     </div>
   );
 };
