@@ -11,20 +11,18 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    height: '100%',
     '@media (max-width: 1000px)' : {
       flexDirection: 'column'
     },
   },
   left: {
     margin: theme.spacing(2),
-    display: 'flex',
-    justifyContent: 'center'
   },
   image: {
     maxWidth: '25rem',
     '@media (max-width: 1000px)' : {
-      maxWidth: '100%'
+      maxWidth: '100%',
+      height: "auto",
     },
     height: "auto",
   },
@@ -32,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2),
     display: "flex",
     flexDirection: "column",
-    maxWidth: '30rem'
+    maxWidth: '30rem',
   },
   title: {
     flexGrow: 1,
@@ -105,7 +103,7 @@ function ProductView() {
           variant="contained"
           className={classes.button}
         >
-          Add to cart
+          Lägg till
         </Button>
       </div>
     </div>

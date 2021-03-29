@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useHistory } from "react-router-dom";
@@ -11,7 +11,6 @@ import Button from "@material-ui/core/Button";
 import Cart from "./Cart";
 
 import VerticalLinearStepper from "./stepper";
-// import LoadingButton from '@material-ui/lab/LoadingButton';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -28,6 +27,9 @@ const useStyles = makeStyles((theme: any) => ({
 }));
 
 export default function Checkout() {
+
+  const [disabled, setDisabled] = useState(false);
+
   const classes = useStyles();
   const { createOrderId, customer, cart, orderPrice, delivery } = useContext(CartContext);
   
@@ -35,7 +37,6 @@ export default function Checkout() {
     window.scrollTo(0, 0)
   }, [])
 
-  // const [pending, setPending] = React.useState(false);
   let history = useHistory();
 
   function navigateToNextPage() {
@@ -43,6 +44,9 @@ export default function Checkout() {
 }
 
   const completeBooking = async () => {  
+
+  setDisabled(true)
+
     const order: Order = {
       id: createOrderId(),
       customer: customer,
@@ -50,7 +54,6 @@ export default function Checkout() {
       deliveryType: delivery.deliveryType,
       totalPrice: orderPrice + delivery.deliveryPrice,
     };
-    // setPending(true)
     
     const res = await mockApi(order);
     navigateToNextPage();
@@ -67,6 +70,7 @@ export default function Checkout() {
           className={classes.button}
           color="primary"
           variant="contained"
+          disabled={disabled}
         >
           Bekräfta beställning
         </Button>
