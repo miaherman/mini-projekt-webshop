@@ -36,11 +36,9 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       justifyContent: "center"
     },
-    
+
     circularProgress: {
-      marginTop: theme.spacing(2),
-      marginLeft: theme.spacing(2),
-      
+      marginTop: theme.spacing(2),      
       },
   })
 );
