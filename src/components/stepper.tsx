@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -6,11 +6,13 @@ import StepLabel from "@material-ui/core/StepLabel";
 import StepContent from "@material-ui/core/StepContent";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import CustomerInfo from "./CustomerInfo";
 import DeliveryInfo from "./DeliveryInfo";
 import PaymentInfo from "./PaymentInfo";
 import Orderinfo from "./Orderinfo";
+import { CartContext, Order } from "../contexts/CartContext";
+import { useHistory } from "react-router";
+import { CircularProgress } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,6 +29,15 @@ const useStyles = makeStyles((theme: Theme) =>
     resetContainer: {
       padding: theme.spacing(3),
     },
+    buttonContainer: {
+      display: "flex",
+      flexDirection: "column",
+      width: "50%",
+    },
+    circularProgress: {
+      marginTop: theme.spacing(2),
+      marginLeft: theme.spacing(2),
+      },
   })
 );
 
@@ -39,7 +50,51 @@ function getSteps() {
 }
 
 export default function VerticalLinearStepper() {
+  const [disabled, setDisabled] = useState(false);
+
   const classes = useStyles();
+  const { createOrderId, payment, customer, cart, orderPrice, delivery } = useContext(
+    CartContext
+  );
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  let history = useHistory();
+
+  function navigateToNextPage() {
+    history.push("/orderconfirmation");
+  }
+
+  const completeBooking = async () => {
+    setDisabled(true);
+
+    const order: Order = {
+      id: createOrderId(),
+      customer: customer,
+      cart: cart,
+      deliveryType: delivery.deliveryType,
+      paymentType: payment.paymentType,
+      totalPrice: orderPrice + delivery.deliveryPrice,
+    };
+
+    await mockApi(order);
+    navigateToNextPage();
+  };
+
+  async function mockApi(order: Order) {
+    console.log(order);
+    await timeOut();
+    return true;
+  }
+
+  async function timeOut() {
+    return new Promise((resolve) => {
+      setTimeout(resolve, 2000);
+    });
+  }
+
   const [activeStep, setActiveStep] = React.useState(0);
   const [hasErrorInForm, setHasErrorInForm] = React.useState(true);
   const steps = getSteps();
@@ -51,7 +106,13 @@ export default function VerticalLinearStepper() {
       case 1:
         return <DeliveryInfo />;
       case 2:
-        return <PaymentInfo onErrorChange={setHasErrorInForm} onErrorChange2={setHasErrorInForm} onErrorChange3={setHasErrorInForm}/>;
+        return (
+          <PaymentInfo
+            onErrorChange={setHasErrorInForm}
+            onErrorChange2={setHasErrorInForm}
+            onErrorChange3={setHasErrorInForm}
+          />
+        );
       default:
         return "Unknown step";
     }
@@ -103,17 +164,29 @@ export default function VerticalLinearStepper() {
       </Stepper>
       {activeStep === steps.length && (
         <Paper square elevation={0} className={classes.resetContainer}>
-          <Typography>
-            <Orderinfo></Orderinfo>
-          </Typography>
-          <Button
-            variant="contained"
-            onClick={handleReset}
-            className={classes.button}
-            color="primary"
-          >
-            Ändra dina uppgifter
-          </Button>
+          <Orderinfo />
+          <div className={classes.buttonContainer}>
+            <Button
+              variant="contained"
+              onClick={handleReset}
+              className={classes.button}
+              color="primary"
+            >
+              Ändra dina uppgifter
+            </Button>
+            {disabled ? (
+                <CircularProgress className={classes.circularProgress} />
+            ) : (
+              <Button
+                onClick={completeBooking}
+                className={classes.button}
+                color="primary"
+                variant="contained"
+              >
+                Bekräfta beställning
+              </Button>
+            )}
+          </div>
         </Paper>
       )}
     </div>

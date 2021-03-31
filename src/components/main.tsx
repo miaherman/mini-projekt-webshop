@@ -1,9 +1,9 @@
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Theme } from "@material-ui/core";
 import { useEffect } from "react";
 import ProductGrid from "./productGrid";
 import WelcomeScreen from './welcomeScreen'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   main: {
     margin: 0
   },

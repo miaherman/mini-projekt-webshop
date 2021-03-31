@@ -58,8 +58,6 @@ function App() {
               </Route>
           </Switch>
           </AnimatePresence>
-
-          {/* <Footer /> */}
         </CartProvider>
       </ThemeProvider>
     </div>

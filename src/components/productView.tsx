@@ -1,10 +1,10 @@
-import { Button, makeStyles, Typography } from "@material-ui/core";
+import { Button, makeStyles, Theme, Typography } from "@material-ui/core";
 import React, { useContext, useEffect } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 import { CartContext } from "../contexts/CartContext";
 import { products } from "../products";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     marginTop: theme.spacing(15),
     marginBottom: theme.spacing(3),

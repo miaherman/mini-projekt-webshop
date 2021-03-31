@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { CartContext } from "../contexts/CartContext";
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 import RemoveCircleOutlineOutlinedIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
-import { CardActions, IconButton } from "@material-ui/core";
+import { CardActions, IconButton, Theme } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -11,7 +11,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 
-const useStyles = makeStyles((theme: any) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     margin: theme.spacing(1),
     width: 180,
@@ -30,8 +30,6 @@ const useStyles = makeStyles((theme: any) => ({
 function Cart() {
   const classes = useStyles();
   const { orderPrice, cart, addToCart, removeFromCart } = useContext(CartContext);
-
-
 
   return (
     <div style={{ width: "100%" }}>

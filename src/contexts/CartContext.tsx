@@ -5,22 +5,23 @@ export interface Order {
   id: number;
   customer: Customer;
   cart: CartItem[];
-  deliveryType?: string;
-  totalPrice?: number;
+  deliveryType: string;
+  paymentType: string;
+  totalPrice: number;
 }
 
 export interface Customer {
-  address?: string;
-  city?: string;
-  firstName?: string;
-  lastName?: string;
-  mobileNumber?: string;
-  postalCode?: string;
-  email?: string;
+  address: string;
+  city: string;
+  firstName: string;
+  lastName: string;
+  mobileNumber: string;
+  postalCode: string;
+  email: string;
 }
 
 export interface Payment {
-  paymentType: string
+  paymentType: string;
 }
 export interface Delivery {
   deliveryType: string;
@@ -30,13 +31,21 @@ export interface Delivery {
 export interface CartItem extends Product {
   quantity: number;
 }
+
+export interface Card {
+  cardNumber: string;
+  cardDate: string;
+  cardCvc: string;
+}
 interface State {
   cart: CartItem[];
   customer: Customer;
   orderPrice: number;
   orderId: number;
   delivery: Delivery;
-  payment: Payment
+  payment: Payment;
+  invoice: string;
+  cardDetails: Card;
 }
 
 interface ContextValue extends State {
@@ -48,6 +57,8 @@ interface ContextValue extends State {
   createOrderId: () => number;
   getDelivery: (delivery: Delivery) => void;
   getPayment: (payment: Payment) => void;
+  getCardDetails: (card: Card) => void;
+  getInvoiceDetails: (invoice: string) => void;
 }
 
 export const CartContext = createContext<ContextValue>({
@@ -55,93 +66,135 @@ export const CartContext = createContext<ContextValue>({
   addToCart: () => {},
   removeFromCart: () => {},
   emptyCart: () => {},
-  customer: {},
+  customer: {
+    address: "",
+    city: "",
+    firstName: "",
+    lastName: "",
+    mobileNumber: "",
+    postalCode: "",
+    email: "",
+  },
   createCustomer: () => {},
   orderPrice: 0,
   getOrderPrice: () => {},
   orderId: 0,
   createOrderId: () => 0,
   delivery: {
-    deliveryType: "",
-    deliveryPrice: 0,
+    deliveryType: "Express",
+    deliveryPrice: 100,
   },
   getDelivery: () => {},
   getPayment: () => {},
   payment: {
-    paymentType: 'Swish'
-  }
+    paymentType: "Swish",
+  },
+  getCardDetails: () => {},
+  cardDetails: {
+    cardCvc: "",
+    cardNumber: "",
+    cardDate: "",
+  },
+  getInvoiceDetails: () => {},
+  invoice: "",
 });
 
 class CartProvider extends Component<{}, State> {
   state: State = {
     cart: [],
-    customer: {},
+    customer: {
+      address: "",
+      city: "",
+      firstName: "",
+      lastName: "",
+      mobileNumber: "",
+      postalCode: "",
+      email: "",
+    },
     orderPrice: 0,
     orderId: 0,
     delivery: {
-      deliveryType: "",
-      deliveryPrice: 0,
+      deliveryType: "Express",
+      deliveryPrice: 100,
     },
     payment: {
-      paymentType: 'Swish'
-    }
+      paymentType: "Swish",
+    },
+    cardDetails: {
+      cardNumber: "",
+      cardDate: "",
+      cardCvc: "",
+    },
+    invoice: "",
   };
-  
-  getOrderPrice = (cart: CartItem[]) => {
-    // let sum = 0;
-    // for (const product of cart) {
-    //   sum + (product.price * product.quantity)
-    // }
-    // return sum;
 
+  getInvoiceDetails = (invoice: string) => {
+    this.setState({ invoice: invoice });
+  };
+
+  getCardDetails = (card: Card) => {
+    this.setState({ cardDetails: card });
+  };
+
+  getOrderPrice = (cart: CartItem[]) => {
     let price = cart.reduce(
       (sum, product) => sum + product.price * product.quantity,
       0
     );
 
     this.setState({ orderPrice: price });
-
   };
 
   createOrderId = () => {
     const min = 11111;
     const max = 99999;
-    const orderId = Math.floor(Math.random() * (max - min) + min)
-    this.setState({ orderId })
+    const orderId = Math.floor(Math.random() * (max - min) + min);
+    this.setState({ orderId });
     // return for convinience
-    return orderId
-  }
+    return orderId;
+  };
 
   getDelivery = (delivery: Delivery) => {
-
     this.setState({ delivery });
-    console.log(delivery)
-
   };
 
   getPayment = (payment: Payment) => {
     this.setState({ payment });
-    console.log(payment)
-
   };
 
   createCustomer = (customer: Customer) => {
-    this.setState({ customer })
-    console.log(customer)
-  }
+    this.setState({ customer });
+  };
 
   emptyCart = () => {
-      
-    this.setState( { cart: [], customer: {}, 
-      orderPrice: 0, 
-      orderId: 0, 
+    this.setState({
+      cart: [],
+      customer: {
+        address: "",
+        city: "",
+        firstName: "",
+        lastName: "",
+        mobileNumber: "",
+        postalCode: "",
+        email: "",
+      },
+      orderPrice: 0,
+      orderId: 0,
       delivery: {
-        deliveryType: "", 
-        deliveryPrice: 0}, 
-        payment: {
-          paymentType: ""} 
-        } )
-  }
+        deliveryType: "Express",
+        deliveryPrice: 100,
+      },
+      payment: {
+        paymentType: "Swish",
+      },
+      cardDetails: {
+        cardNumber: "",
+        cardDate: "",
+        cardCvc: "",
+      },
+      invoice: "",
+    });
+  };
 
   addProductToCart = (product: Product) => {
     const updatedCart = [...this.state.cart];
@@ -160,7 +213,7 @@ class CartProvider extends Component<{}, State> {
       updatedCart[updatedItemIndex] = updatedItem;
     }
 
-    this.getOrderPrice(updatedCart)
+    this.getOrderPrice(updatedCart);
     this.setState({ cart: updatedCart });
     console.log(updatedCart);
   };
@@ -182,7 +235,7 @@ class CartProvider extends Component<{}, State> {
       updatedCart[updatedItemIndex] = updatedItem;
     }
 
-    this.getOrderPrice(updatedCart)
+    this.getOrderPrice(updatedCart);
     this.setState({ cart: updatedCart });
     console.log(updatedCart);
     console.log(updatedItemIndex);
@@ -201,6 +254,8 @@ class CartProvider extends Component<{}, State> {
           createOrderId: this.createOrderId,
           getDelivery: this.getDelivery,
           getPayment: this.getPayment,
+          getCardDetails: this.getCardDetails,
+          getInvoiceDetails: this.getInvoiceDetails,
         }}
       >
         {this.props.children}

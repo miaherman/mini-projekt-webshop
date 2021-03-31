@@ -9,6 +9,7 @@ import {
   Typography,
   CardActions,
   Button,
+  Theme,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -17,7 +18,7 @@ import { products } from "../products";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   gridContainer: {
     margin: 0,
   },
@@ -55,8 +56,8 @@ function ProductGrid() {
   return (
     <Grid container justify="center" className={classes.gridContainer}>
       {products.map((product) => (
-        <motion.div whileHover={{ scale: 1.05 }}>
-          <Grid item key={product.id}>
+        <motion.div key={product.id} whileHover={{ scale: 1.05 }}>
+          <Grid item>
             <Card className={classes.root}>
               <Link
                 style={{ textDecoration: "none" }}

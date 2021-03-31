@@ -1,7 +1,7 @@
-import { makeStyles, Typography } from "@material-ui/core";
+import { makeStyles, Theme, Typography } from "@material-ui/core";
 import React from "react";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     marginTop: theme.spacing(7),
     backgroundColor: theme.palette.secondary.main,

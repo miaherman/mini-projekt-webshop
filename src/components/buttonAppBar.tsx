@@ -6,11 +6,11 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import HomeIcon from "@material-ui/icons/Home";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { Badge } from "@material-ui/core";
+import { Badge, Theme } from "@material-ui/core";
 import { CartContext } from "../contexts/CartContext";
 import { Link } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1,
   },
@@ -42,9 +42,7 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             PrintyPrint
           </Typography>
-          <Link style={{ color: "inherit" }} to='/checkout' onClick={() => {
-                console.info("clickme");
-              }}>
+          <Link style={{ color: "inherit" }} to='/checkout'>
             <IconButton aria-label="" color="inherit">
               <Badge badgeContent={cart.reduce((a: any, b: any) => +a + +b.quantity, 0)} color="secondary">
                 <ShoppingCartIcon/>
