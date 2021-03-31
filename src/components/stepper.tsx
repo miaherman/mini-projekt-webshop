@@ -32,11 +32,15 @@ const useStyles = makeStyles((theme: Theme) =>
     buttonContainer: {
       display: "flex",
       flexDirection: "column",
-      width: "50%",
+      width: "100%",
+      alignItems: "center",
+      justifyContent: "center"
     },
+    
     circularProgress: {
       marginTop: theme.spacing(2),
       marginLeft: theme.spacing(2),
+      
       },
   })
 );
