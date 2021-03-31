@@ -13,7 +13,6 @@ import Main from "./components/main";
 import Orderconfirmation from "./components/Orderconfirmation";
 import PageAnimation from "./wrapper/PageAnimation";
 import { AnimatePresence } from "framer-motion";
-import Footer from "./components/Footer";
 
 const useStyles = makeStyles((theme) => ({
   App: {

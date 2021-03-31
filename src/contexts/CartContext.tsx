@@ -68,7 +68,7 @@ export const CartContext = createContext<ContextValue>({
   getDelivery: () => {},
   getPayment: () => {},
   payment: {
-    paymentType: ''
+    paymentType: 'Swish'
   }
 });
 
@@ -83,7 +83,7 @@ class CartProvider extends Component<{}, State> {
       deliveryPrice: 0,
     },
     payment: {
-      paymentType: ''
+      paymentType: 'Swish'
     }
   };
   

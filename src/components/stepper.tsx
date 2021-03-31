@@ -41,7 +41,7 @@ function getSteps() {
 export default function VerticalLinearStepper() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-  const [hasErrorInForm, setHasErrorInForm] = React.useState(false);
+  const [hasErrorInForm, setHasErrorInForm] = React.useState(true);
   const steps = getSteps();
 
   function getStepContent(step: number) {
@@ -51,7 +51,7 @@ export default function VerticalLinearStepper() {
       case 1:
         return <DeliveryInfo />;
       case 2:
-        return <PaymentInfo />;
+        return <PaymentInfo onErrorChange={setHasErrorInForm} onErrorChange2={setHasErrorInForm} onErrorChange3={setHasErrorInForm}/>;
       default:
         return "Unknown step";
     }

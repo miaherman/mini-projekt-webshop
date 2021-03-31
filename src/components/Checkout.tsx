@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 import Cart from "./Cart";
 
 import VerticalLinearStepper from "./stepper";
+import { CircularProgress } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -65,15 +66,18 @@ export default function Checkout() {
       <Container maxWidth="sm">
         <VerticalLinearStepper />
 
-        <Button
-          onClick={completeBooking}
-          className={classes.button}
-          color="primary"
-          variant="contained"
-          disabled={disabled}
-        >
-          Bekräfta beställning
-        </Button>
+        {disabled ? (
+          <CircularProgress />
+        ) : (
+          <Button
+            onClick={completeBooking}
+            className={classes.button}
+            color="primary"
+            variant="contained"
+          >
+            Bekräfta beställning
+          </Button>
+        )}
 
       </Container>
     </div>

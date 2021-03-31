@@ -38,12 +38,14 @@ function CustomerInfo({ onErrorChange }: Props) {
 
     
     useEffect(() => {
-      onErrorChange(Boolean(firstNameError || lastNameError || addressError || postalCodeError || cityError || mobileNumberError))
-    }, [firstNameError, lastNameError, addressError, postalCodeError, cityError, mobileNumberError])
-    
+      const hasError = Boolean(firstNameError || lastNameError || addressError || postalCodeError || cityError || mobileNumberError || emailError)
+      const hasMissingInfo = !customer.firstName || !customer.lastName || !customer.address || !customer.postalCode || !customer.city || !customer.mobileNumber || !customer.email
+      onErrorChange(hasError || hasMissingInfo)
+    }, [firstNameError, lastNameError, addressError, postalCodeError, cityError, mobileNumberError, emailError, customer])
+
     const handleFirstNameChange = (e: ChangeEvent<HTMLInputElement>) => {
       createCustomer({ ...customer, firstName: e.target.value })
-      
+
       if (!/^[a-öA-Ö]+$/.test(e.target.value)) {
         setFirstNameError("Var god ange endast bokstäver");
       } else {
