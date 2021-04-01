@@ -87,6 +87,6 @@ export const products: Array<Product> = [
       title: "Yellow Cuts",
       description: "Grafisk illustration med vita former som bildar ett abstrakt mönster på en gul bakgrund.",
       size: '50x70 cm',
-      price: 2000,
+      price: 350,
     },
 ];
