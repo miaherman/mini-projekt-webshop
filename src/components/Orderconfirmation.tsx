@@ -19,7 +19,7 @@ const Orderconfirmation = () => {
   const classes = useStyles();
 
   const { orderId: orderIdFromCart, emptyCart } = useContext(CartContext);
-  const [orderId, setOrderId] = useState(orderIdFromCart);
+  const [orderId] = useState(orderIdFromCart);
 
   useEffect(() => {
 
