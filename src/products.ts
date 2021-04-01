@@ -54,7 +54,7 @@ export const products: Array<Product> = [
       path: 'lilac-abstract-poster',
       image:
         "https://desenio.se/bilder/artiklar/zoom/14767_2.jpg?imgwidth=435&qt=Svarta%20former",
-      title: "Lilac Abstract Poster",
+      title: "Lilac Abstract",
       description: "Grafisk illustration med svarta abstrakta former och en lila rektangel bakom, på en beige bakgrund med svart text upptill och nedtill.",
       size: '50x70 cm',
       price: 500,
@@ -64,7 +64,7 @@ export const products: Array<Product> = [
       path: 'Lavender-abstract',
       image:
         "https://desenio.se/bilder/artiklar/zoom/14973_2.jpg?imgwidth=435&qt=Orange%20former",
-      title: "Lavender Abstract",
+      title: "Lavender",
       description: "Abstrakt illustration med en orange form med svarta och vita konturer mot en lila bakgrund med svarta detaljer.",
       size: '50x70 cm',
       price: 350,
@@ -81,7 +81,7 @@ export const products: Array<Product> = [
     },
     {
     id: 8,
-      path: 'a-cup-of-tea',
+      path: 'yellow-cuts',
       image:
         "https://desenio.se/bilder/artiklar/zoom/14650_2.jpg?imgwidth=435&qt=Abstrakta%20former",
       title: "Yellow Cuts",
