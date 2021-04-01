@@ -8,10 +8,10 @@ created with the use of Material UI - https://material-ui.com/.
 Enjoy!
 ## Available Scripts
 
-Install dependencies:/
+### Install dependencies:
 
-npm install/
+`npm install`
 
-Run application:/
+### Run application:
 
-npm start/
+`npm start`
