@@ -19,11 +19,6 @@ function PaymentInfo({ onErrorChange, onErrorChange2, onErrorChange3 }: Props) {
   const { customer, getPayment, payment, cardDetails, invoice, getInvoiceDetails, getCardDetails } = useContext(CartContext);
   const [swishNumber, setSwishNumber] = useState(customer.mobileNumber);
 
-  // const [cardNumber, setCardNumber] = useState("");
-  // const [cardDate, setCardDate] = useState("");
-  // const [cardCvc, setCardCvc] = useState("");
-  // const [personalId, setPersonalId] = useState("");
-
   const [swishError, setSwishError] = useState("");
 
   const [cardError, setCardError] = useState("");
@@ -229,7 +224,7 @@ function PaymentInfo({ onErrorChange, onErrorChange2, onErrorChange3 }: Props) {
               required
               fullWidth
               style={{ margin: 8 }}
-              placeholder="ÅÅÅÅMMDD-XXXX"
+              placeholder="ÅÅÅÅMMDDXXXX"
               margin="normal"
               InputLabelProps={{
                 shrink: true,

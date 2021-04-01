@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { CartContext } from "../contexts/CartContext";
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 import RemoveCircleOutlineOutlinedIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { CardActions, IconButton, Theme } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import Card from "@material-ui/core/Card";
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 function Cart() {
   const classes = useStyles();
-  const { orderPrice, cart, addToCart, removeFromCart } = useContext(CartContext);
+  const { orderPrice, cart, addToCart, removeFromCart, removeAllFromCart } = useContext(CartContext);
 
   return (
     <div style={{ width: "100%" }}>
@@ -87,6 +88,13 @@ function Cart() {
                     color="inherit"
                   >
                     <RemoveCircleOutlineOutlinedIcon />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => removeAllFromCart(product)}
+                    aria-label=""
+                    color="inherit"
+                  >
+                    <HighlightOffIcon />
                   </IconButton>
                 </CardActions>
               </Card>

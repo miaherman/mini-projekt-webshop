@@ -51,6 +51,7 @@ interface State {
 interface ContextValue extends State {
   addToCart: (product: Product) => void;
   removeFromCart: (product: Product) => void;
+  removeAllFromCart: (product: Product) => void;
   emptyCart: () => void;
   createCustomer: (customer: Customer) => void;
   getOrderPrice: (cart: CartItem[]) => void;
@@ -65,6 +66,7 @@ export const CartContext = createContext<ContextValue>({
   cart: [],
   addToCart: () => {},
   removeFromCart: () => {},
+  removeAllFromCart: () => {},
   emptyCart: () => {},
   customer: {
     address: "",
@@ -241,6 +243,26 @@ class CartProvider extends Component<{}, State> {
     console.log(updatedItemIndex);
   };
 
+  removeAllFromCart = (product: Product) => {
+    const updatedCart = [...this.state.cart];
+
+    const updatedItemIndex = updatedCart.findIndex(
+      (item) => item.id === product.id
+    );
+
+    const updatedItem = {
+      ...updatedCart[updatedItemIndex],
+    };
+
+    updatedItem.quantity = 0;
+    updatedCart.splice(updatedItemIndex, 1);
+
+    this.getOrderPrice(updatedCart);
+    this.setState({ cart: updatedCart });
+    console.log(updatedCart);
+    console.log(updatedItemIndex);
+  };
+
   render() {
     return (
       <CartContext.Provider
@@ -249,6 +271,7 @@ class CartProvider extends Component<{}, State> {
           emptyCart: this.emptyCart,
           addToCart: this.addProductToCart,
           removeFromCart: this.removeProductFromCart,
+          removeAllFromCart: this.removeAllFromCart,
           createCustomer: this.createCustomer,
           getOrderPrice: this.getOrderPrice,
           createOrderId: this.createOrderId,
