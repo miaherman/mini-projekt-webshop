@@ -83,9 +83,9 @@ export const products: Array<Product> = [
     id: 8,
       path: 'a-cup-of-tea',
       image:
-        "https://cdn.shopify.com/s/files/1/0118/7443/5129/products/B54-031_1024x1024.jpg?v=1595307521",
-      title: "A Cup of Tea",
-      description: "Inspirerande poster med Rajneesh Bhagwan",
+        "https://desenio.se/bilder/artiklar/zoom/14650_2.jpg?imgwidth=435&qt=Abstrakta%20former",
+      title: "Yellow Cuts",
+      description: "Grafisk illustration med vita former som bildar ett abstrakt mönster på en gul bakgrund.",
       size: '50x70 cm',
       price: 2000,
     },
